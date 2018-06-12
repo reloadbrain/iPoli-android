@@ -139,11 +139,11 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 
         newSubQuestWatcher = object : TextWatcher {
             override fun afterTextChanged(editable: Editable) {
-                if (editable.isBlank()) {
-                    view.newSubQuestName.invisible()
-                } else {
-                    view.newSubQuestName.visible()
-                }
+//                if (editable.isBlank()) {
+//                    view.newSubQuestName.invisible()
+//                } else {
+//                    view.newSubQuestName.visible()
+//                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -333,7 +333,7 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 
             view.editSubQuestName.setOnEditTextImeBackListener(object : EditTextImeBackListener {
                 override fun onImeBack(ctrl: EditTextBackEvent, text: String) {
-                    enterFullScreen()
+//                    enterFullScreen()
                 }
             })
 
