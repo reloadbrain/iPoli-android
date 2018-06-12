@@ -66,9 +66,9 @@
                     android:id="@+id/timerProgressLayout"
                     android:layout_width="match_parent"
                     android:layout_height="450dp"
-                    android:visibility="gone"
                     android:clickable="true"
-                    android:focusable="true">
+                    android:focusable="true"
+                    android:visibility="gone">
 
                     <ProgressBar
                         android:id="@+id/timerProgress"
@@ -171,6 +171,8 @@
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="72dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:max="100"
             android:progress="0"
             android:progressDrawable="@drawable/quest_sub_quests_progress"
@@ -219,16 +221,16 @@
         <io.ipoli.android.common.view.EditTextBackEvent
             android:id="@+id/newSubQuestName"
             android:layout_width="0dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:imeOptions="actionDone"
-            android:inputType="textCapSentences"
             android:background="@null"
             android:hint="@string/add_sub_quest"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences"
             android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/md_dark_text_87"
             android:textColorHint="@color/md_dark_text_54"
             app:layout_constraintEnd_toEndOf="parent"
@@ -246,6 +248,8 @@
             android:id="@+id/questNote"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/questNoteLabel" />
