@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import io.ipoli.android.R
 import io.ipoli.android.achievement.Achievement
-import io.ipoli.android.achievement.AndroidAchievement
+import io.ipoli.android.achievement.androidAchievement
 import io.ipoli.android.achievement.view.AchievementData
 import io.ipoli.android.achievement.view.AchievementUnlocked
 import io.ipoli.android.common.datetime.seconds
@@ -31,7 +31,7 @@ class AndroidShowUnlockedAchievementsScheduler(private val context: Context) :
         val c = context.asThemedWrapper()
 
         val androidAchievements = achievements
-            .map { AndroidAchievement.valueOf(it.name) }.map {
+            .map { it.androidAchievement }.map {
                 AchievementData(
                     title = c.getString(R.string.achievement_unlocked),
                     subtitle = c.getString(it.title),

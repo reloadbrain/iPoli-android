@@ -68,11 +68,14 @@ enum class Achievement {
     FIRST_POWER_UP_ACTIVATED,
     FIRST_PET_CHANGED,
     PET_DIED,
-//    COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW,
+    //    COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW,
     FEEDBACK_SENT;
 }
 
-enum class AndroidAchievement(@StringRes val title: Int, val levelDescriptions: Map<Int, Int>, @ColorRes val color: Int, @DrawableRes val icon: Int, val isHidden : Boolean = false) {
+enum class AndroidAchievement(
+    @StringRes val title: Int, val levelDescriptions: Map<Int, Int>, @ColorRes val color: Int, @DrawableRes val icon: Int,
+    val isHidden: Boolean = false
+) {
     FIRST_QUEST_COMPLETED(
         R.string.achievement_first_quest_completed_name,
         mapOf(1 to R.string.achievement_first_quest_completed_desc),
@@ -374,5 +377,74 @@ val CreateAchievementItemsUseCase.AchievementItem.androidAchievement
 
             is CreateAchievementItemsUseCase.AchievementItem.FeedbackSent ->
                 AndroidAchievement.FEEDBACK_SENT
+
+        }
+
+val Achievement.androidAchievement
+    get() =
+        when (this) {
+
+            Achievement.FIRST_QUEST_COMPLETED -> AndroidAchievement.FIRST_QUEST_COMPLETED
+
+            Achievement.KEEP_PET_HAPPY_5_DAY_STREAK,
+            Achievement.KEEP_PET_HAPPY_15_DAY_STREAK,
+            Achievement.KEEP_PET_HAPPY_40_DAY_STREAK -> AndroidAchievement.KEEP_PET_HAPPY
+
+        // >= 4
+            Achievement.AWESOMENESS_SCORE_5_DAY_STREAK,
+            Achievement.AWESOMENESS_SCORE_20_DAY_STREAK,
+            Achievement.AWESOMENESS_SCORE_50_DAY_STREAK -> AndroidAchievement.AWESOMENESS_STREAK
+
+        // only on plan days
+            Achievement.FOCUS_HOURS_5_DAY_STREAK,
+            Achievement.FOCUS_HOURS_20_DAY_STREAK,
+            Achievement.FOCUS_HOURS_50_DAY_STREAK -> AndroidAchievement.FOCUS_HOURS_STREAK
+
+            Achievement.PLAN_DAY_5_DAY_STREAK,
+            Achievement.PLAN_DAY_20_DAY_STREAK,
+            Achievement.PLAN_DAY_50_DAY_STREAK -> AndroidAchievement.PLAN_DAY_STREAK
+
+            Achievement.CONVERT_1_GEM,
+            Achievement.CONVERT_20_GEMS,
+            Achievement.CONVERT_50_GEMS -> AndroidAchievement.GEMS_CONVERTED
+
+            Achievement.REACH_LEVEL_10,
+            Achievement.REACH_LEVEL_30,
+            Achievement.REACH_LEVEL_50 -> AndroidAchievement.LEVEL_UP
+
+            Achievement.HAVE_1K_LIFE_COINS_IN_INVENTORY,
+            Achievement.HAVE_5K_LIFE_COINS_IN_INVENTORY,
+            Achievement.HAVE_10K_LIFE_COINS_IN_INVENTORY -> AndroidAchievement.COINS_IN_INVENTORY
+
+            Achievement.INVITE_1_FRIEND,
+            Achievement.INVITE_5_FRIENDS,
+            Achievement.INVITE_20_FRIENDS -> AndroidAchievement.INVITE_FRIEND
+
+            Achievement.GAIN_999_XP_IN_A_DAY -> AndroidAchievement.GAIN_999_XP_IN_A_DAY
+            Achievement.FIRST_PET_ITEM_EQUIPPED -> AndroidAchievement.FIRST_PET_ITEM_EQUIPPED
+
+            Achievement.FIRST_REPEATING_QUEST_CREATED -> AndroidAchievement.FIRST_REPEATING_QUEST_CREATED
+
+            Achievement.FIRST_CHALLENGE_CREATED -> AndroidAchievement.FIRST_CHALLENGE_CREATED
+
+            Achievement.COMPLETE_DAILY_CHALLENGE,
+            Achievement.COMPLETE_DAILY_CHALLENGE_10_DAY_STREAK,
+            Achievement.COMPLETE_DAILY_CHALLENGE_30_DAY_STREAK -> AndroidAchievement.COMPLETE_DAILY_CHALLENGE_STREAK
+
+            Achievement.COMPLETE_CHALLENGE,
+            Achievement.COMPLETE_5_CHALLENGES,
+            Achievement.COMPLETE_15_CHALLENGES -> AndroidAchievement.COMPLETE_CHALLENGE
+
+            Achievement.PET_FED_WITH_POOP -> AndroidAchievement.PET_FED_WITH_POOP
+            Achievement.PET_FED -> AndroidAchievement.PET_FED
+            Achievement.BECAME_PRO -> AndroidAchievement.BECAME_PRO
+//    PET_REVIVED,
+
+            Achievement.FIRST_AVATAR_CHANGED -> AndroidAchievement.FIRST_AVATAR_CHANGED
+            Achievement.FIRST_POWER_UP_ACTIVATED -> AndroidAchievement.FIRST_POWER_UP_ACTIVATED
+            Achievement.FIRST_PET_CHANGED -> AndroidAchievement.FIRST_PET_CHANGED
+            Achievement.PET_DIED -> AndroidAchievement.PET_DIED
+//    COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW,
+            Achievement.FEEDBACK_SENT -> AndroidAchievement.FEEDBACK_SENT
 
         }
