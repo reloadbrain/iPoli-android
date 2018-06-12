@@ -166,20 +166,81 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ProgressBar
+            android:id="@+id/subQuestListProgress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/quest_sub_quests_progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/questSubQuestsLabel" />
+
+        <TextView
+            android:id="@+id/subQuestListProgressLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/md_light_text_70"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/doneLabel"
+            app:layout_constraintEnd_toEndOf="@+id/subQuestListProgress"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/subQuestListProgress"
+            app:layout_constraintTop_toTopOf="@+id/subQuestListProgress"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/doneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/done"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/md_light_text_70"
+            app:layout_constraintBottom_toBottomOf="@+id/subQuestListProgress"
+            app:layout_constraintEnd_toEndOf="@+id/subQuestListProgressLabel"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/subQuestListProgressLabel"
+            app:layout_constraintTop_toBottomOf="@+id/subQuestListProgressLabel" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/questSubQuestList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/questSubQuestsLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/subQuestListProgress" />
+
+        <io.ipoli.android.common.view.EditTextBackEvent
+            android:id="@+id/newSubQuestName"
+            android:layout_width="0dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences"
+            android:background="@null"
+            android:hint="@string/add_sub_quest"
+            android:maxLines="1"
+            android:textColor="@color/md_dark_text_87"
+            android:textColorHint="@color/md_dark_text_54"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/questSubQuestList"
+            app:layout_constraintTop_toBottomOf="@+id/questSubQuestList" />
 
         <TextView
             android:id="@+id/questNoteLabel"
             style="@style/SectionTitle"
             android:text="Note"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/questSubQuestList" />
+            app:layout_constraintTop_toBottomOf="@+id/newSubQuestName" />
 
         <TextView
             android:id="@+id/questNote"
