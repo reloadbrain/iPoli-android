@@ -1,6 +1,5 @@
 package io.ipoli.android.challenge.show
 
-import android.animation.ObjectAnimator
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -126,7 +125,6 @@ class ChallengeViewController(args: Bundle? = null) :
                         supportActionBar?.setDisplayShowTitleEnabled(true)
                     }
                 }
-
             }
         })
     }

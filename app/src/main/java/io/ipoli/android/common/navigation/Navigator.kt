@@ -32,7 +32,7 @@ import io.ipoli.android.quest.edit.EditQuestViewController
 import io.ipoli.android.quest.reminder.picker.ReminderPickerDialogController
 import io.ipoli.android.quest.reminder.picker.ReminderViewModel
 import io.ipoli.android.quest.schedule.addquest.AddQuestViewController
-import io.ipoli.android.quest.show.QuestViewController
+import io.ipoli.android.quest.show.QuestDetailViewController
 import io.ipoli.android.repeatingquest.edit.picker.RepeatPatternPickerDialogController
 import io.ipoli.android.repeatingquest.entity.RepeatPattern
 import io.ipoli.android.settings.view.DaysPickerDialogController
@@ -131,11 +131,11 @@ class Navigator(private val router: Router) {
     }
 
     fun setQuest(questId: String) {
-        setController({ QuestViewController(questId) })
+        setController({ QuestDetailViewController(questId) })
     }
 
     fun toQuest(questId: String) {
-        pushController({ QuestViewController(questId) }, VerticalChangeHandler())
+        pushController({ QuestDetailViewController(questId) }, VerticalChangeHandler())
     }
 
     fun toGemStore(changeHandler: ControllerChangeHandler? = null) {

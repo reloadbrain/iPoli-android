@@ -7,6 +7,7 @@ import io.ipoli.android.common.DataLoadedAction
 import io.ipoli.android.common.datetime.*
 import io.ipoli.android.common.mvi.BaseViewState
 import io.ipoli.android.common.redux.Action
+import io.ipoli.android.quest.Color
 import io.ipoli.android.quest.Quest
 import io.ipoli.android.quest.TimeRange
 import io.ipoli.android.quest.show.QuestViewState.StateType.*
@@ -154,6 +155,7 @@ object QuestReducer : BaseViewStateReducer<QuestViewState>() {
 
         val newState = state.copy(
             questName = quest.name,
+            color = quest.color,
             subQuests = quest.subQuests,
             subQuestListProgressPercent = ((completedSubQuestsCount.toFloat() / quest.subQuests.size) * 100).toInt(),
             hasSubQuests = hasSubQuests,
@@ -308,6 +310,7 @@ object QuestReducer : BaseViewStateReducer<QuestViewState>() {
 data class QuestViewState(
     val type: StateType,
     val quest: Quest? = null,
+    val color: Color = Color.BLUE,
     val showTimerTypeSwitch: Boolean = false,
     val timerLabel: String = "",
     val remainingTime: Duration<Second>? = null,
