@@ -124,6 +124,7 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
             QuestViewState.StateType.SHOW_POMODORO -> {
                 colorLayout(state, view)
                 view.questName.text = state.questName
+                view.questNote.setMarkdown(state.note)
             }
 
             QuestViewState.StateType.RUNNING -> {
