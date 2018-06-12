@@ -646,7 +646,7 @@ class AddRepeatingQuestViewController(args: Bundle? = null) :
                 }
 
                 EditRepeatingQuestViewState.StateType.VALID_NAME ->
-                    dispatch(EditRepeatingQuestAction.Save)
+                    dispatch(EditRepeatingQuestAction.SaveNew)
 
                 else -> {
                 }

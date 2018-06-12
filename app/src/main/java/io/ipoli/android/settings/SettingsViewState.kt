@@ -7,9 +7,9 @@ import io.ipoli.android.common.DataLoadedAction
 import io.ipoli.android.common.datetime.Time
 import io.ipoli.android.common.mvi.BaseViewState
 import io.ipoli.android.common.redux.Action
-import io.ipoli.android.player.Player
-import io.ipoli.android.player.Player.Preferences.TemperatureUnit.FAHRENHEIT
-import io.ipoli.android.player.Player.Preferences.TimeFormat.TWELVE_HOURS
+import io.ipoli.android.player.data.Player
+import io.ipoli.android.player.data.Player.Preferences.TemperatureUnit.FAHRENHEIT
+import io.ipoli.android.player.data.Player.Preferences.TimeFormat.TWELVE_HOURS
 import io.ipoli.android.settings.SettingsViewState.StateType.*
 import io.ipoli.android.store.powerup.PowerUp
 import io.ipoli.android.store.powerup.middleware.ShowBuyPowerUpAction

@@ -7,9 +7,9 @@ import io.ipoli.android.common.Reward
 import io.ipoli.android.common.SimpleReward
 import io.ipoli.android.pet.Food
 import io.ipoli.android.player.ExperienceForLevelGenerator
-import io.ipoli.android.player.Inventory
+import io.ipoli.android.player.data.Inventory
 import io.ipoli.android.player.LevelUpScheduler
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.quest.Quest
 import org.amshove.kluent.*
 import org.jetbrains.spek.api.Spek

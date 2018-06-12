@@ -4,9 +4,9 @@ import io.ipoli.android.TestUtil
 import io.ipoli.android.pet.Pet
 import io.ipoli.android.pet.PetAvatar
 import io.ipoli.android.pet.PetItem
-import io.ipoli.android.player.Inventory
-import io.ipoli.android.player.InventoryPet
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Inventory
+import io.ipoli.android.player.data.InventoryPet
+import io.ipoli.android.player.data.Player
 import org.amshove.kluent.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -36,7 +36,11 @@ class BuyPetItemUseCaseSpek : Spek({
                 ),
                 inventory = Inventory(
                     pets = setOf(
-                        InventoryPet("Pencho", PetAvatar.ELEPHANT, setOf(PetItem.RED_HAT))
+                        InventoryPet(
+                            "Pencho",
+                            PetAvatar.ELEPHANT,
+                            setOf(PetItem.RED_HAT)
+                        )
                     )
                 )
             )
@@ -52,7 +56,12 @@ class BuyPetItemUseCaseSpek : Spek({
                     PetAvatar.ELEPHANT
                 ),
                 inventory = Inventory(
-                    pets = setOf(InventoryPet("Pencho", PetAvatar.ELEPHANT))
+                    pets = setOf(
+                        InventoryPet(
+                            "Pencho",
+                            PetAvatar.ELEPHANT
+                        )
+                    )
                 )
             )
             val result = executeUseCase(player, PetItem.RED_HAT)
@@ -67,7 +76,12 @@ class BuyPetItemUseCaseSpek : Spek({
                     PetAvatar.ELEPHANT
                 ),
                 inventory = Inventory(
-                    pets = setOf(InventoryPet("Pencho", PetAvatar.ELEPHANT))
+                    pets = setOf(
+                        InventoryPet(
+                            "Pencho",
+                            PetAvatar.ELEPHANT
+                        )
+                    )
                 )
             )
             val result = executeUseCase(player, PetItem.RED_HAT)

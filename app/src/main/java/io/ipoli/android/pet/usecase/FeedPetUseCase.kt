@@ -5,7 +5,7 @@ import io.ipoli.android.pet.Food
 import io.ipoli.android.pet.Pet
 import io.ipoli.android.pet.PetAvatar
 import io.ipoli.android.pet.usecase.FeedPetUseCase.FoodReward.*
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.persistence.PlayerRepository
 
 /**

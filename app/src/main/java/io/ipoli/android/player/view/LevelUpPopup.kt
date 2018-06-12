@@ -21,7 +21,7 @@ import io.ipoli.android.common.view.anim.TypewriterTextAnimator
 import io.ipoli.android.common.view.visible
 import io.ipoli.android.pet.AndroidPetAvatar
 import io.ipoli.android.pet.PetAvatar
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.persistence.PlayerRepository
 import kotlinx.android.synthetic.main.popup_level_up.view.*
 import kotlinx.coroutines.experimental.launch

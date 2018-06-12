@@ -2,7 +2,7 @@ package io.ipoli.android.challenge.usecase
 
 import io.ipoli.android.challenge.predefined.entity.PredefinedChallenge
 import io.ipoli.android.common.UseCase
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.persistence.PlayerRepository
 
 /**

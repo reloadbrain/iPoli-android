@@ -1,5 +1,6 @@
 package io.ipoli.android.player
 
+import io.ipoli.android.achievement.usecase.CreateAchievementItemsUseCase
 import io.ipoli.android.common.AppState
 import io.ipoli.android.common.BaseViewStateReducer
 import io.ipoli.android.common.DataLoadedAction
@@ -10,6 +11,7 @@ import io.ipoli.android.common.redux.Action
 import io.ipoli.android.pet.Pet
 import io.ipoli.android.player.ProfileViewState.StateType.*
 import io.ipoli.android.player.data.Avatar
+import io.ipoli.android.player.data.Player
 
 sealed class ProfileAction : Action {
     data class Save(val displayName: String, val bio: String) : ProfileAction()
@@ -39,11 +41,12 @@ object ProfileReducer : BaseViewStateReducer<ProfileViewState>() {
             createStateFromPlayer(p, subState)
         }
 
-        is DataLoadedAction.ProfileStatsChanged -> {
+        is DataLoadedAction.ProfileDataChanged -> {
 
             val newState = subState.copy(
                 dailyChallengeStreak = action.streak,
-                last7DaysAverageProductiveDuration = action.averageProductiveDuration
+                last7DaysAverageProductiveDuration = action.averageProductiveDuration,
+                unlockedAchievements = action.unlockedAchievements
             )
             if (hasProfileDataLoaded(newState)) {
                 newState.copy(
@@ -113,7 +116,8 @@ object ProfileReducer : BaseViewStateReducer<ProfileViewState>() {
             coins = -1,
             gems = -1,
             dailyChallengeStreak = -1,
-            last7DaysAverageProductiveDuration = null
+            last7DaysAverageProductiveDuration = null,
+            unlockedAchievements = emptyList()
         )
 
     override val stateKey = key<ProfileViewState>()
@@ -134,7 +138,8 @@ data class ProfileViewState(
     val coins: Int,
     val gems: Int,
     val dailyChallengeStreak: Int,
-    val last7DaysAverageProductiveDuration: Duration<Minute>?
+    val last7DaysAverageProductiveDuration: Duration<Minute>?,
+    val unlockedAchievements: List<CreateAchievementItemsUseCase.AchievementItem>
 ) : BaseViewState() {
 
     enum class StateType { LOADING, PROFILE_DATA_LOADED, EDIT, EDIT_STOPPED }

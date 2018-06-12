@@ -19,8 +19,8 @@ import io.ipoli.android.common.datetime.startOfDayUTC
 import io.ipoli.android.common.persistence.BaseEntityFirestoreRepository
 import io.ipoli.android.common.persistence.EntityRepository
 import io.ipoli.android.pet.*
-import io.ipoli.android.player.*
-import io.ipoli.android.player.data.Avatar
+import io.ipoli.android.player.Theme
+import io.ipoli.android.player.data.*
 import io.ipoli.android.player.persistence.model.*
 import io.ipoli.android.quest.ColorPack
 import io.ipoli.android.quest.IconPack
@@ -48,6 +48,7 @@ interface PlayerRepository : EntityRepository<Player> {
     fun findSchemaVersion(): Int?
     fun findServerSchemaVersion(): Int?
     fun purge(playerId: String)
+    fun saveStatistics(stats: Statistics): Statistics
 }
 
 class FirestorePlayerRepository(
@@ -145,6 +146,11 @@ class FirestorePlayerRepository(
         return schemaVer?.let {
             (schemaVer as Long).toInt()
         }
+    }
+
+    override fun saveStatistics(stats: Statistics): Statistics {
+        entityReference.update("statistics", createDbStatistics(stats))
+        return stats
     }
 
     override fun toEntityObject(dataMap: MutableMap<String, Any?>): Player {
@@ -263,7 +269,8 @@ class FirestorePlayerRepository(
             pet = pet,
             membership = Membership.valueOf(cp.membership),
             preferences = pref,
-            achievements = achievements
+            achievements = achievements,
+            statistics = createStatistics(cp.statistics)
         )
     }
 
@@ -272,6 +279,60 @@ class FirestorePlayerRepository(
         val toPetItem: (String?) -> PetItem? = { it?.let { PetItem.valueOf(it) } }
         return PetEquipment(toPetItem(e.hat), toPetItem(e.mask), toPetItem(e.bodyArmor))
     }
+
+    private fun createStatistics(stats: Map<String, Any?>) =
+        Statistics(
+            questCompletedCount = createCountStatistic("questCompletedCount", stats),
+            questCompletedCountForToday = createCountStatistic(
+                "questCompletedCountForToday",
+                stats
+            ),
+            questCompletedStreak = createStreakStatistic("questCompletedStreak", stats),
+            dailyChallengeCompleteStreak = createStreakStatistic(
+                "dailyChallengeCompleteStreak",
+                stats
+            ),
+            petHappyStateStreak = createCountStatistic("petHappyStateStreak", stats),
+            awesomenessScoreStreak = createCountStatistic("awesomenessScoreStreak", stats),
+            planDayStreak = createStreakStatistic("planDayStreak", stats),
+            focusHoursStreak = createCountStatistic("focusHoursStreak", stats),
+            repeatingQuestCreatedCount = createCountStatistic("repeatingQuestCreatedCount", stats),
+            challengeCompletedCount = createCountStatistic("challengeCompletedCount", stats),
+            challengeCreatedCount = createCountStatistic("challengeCreatedCount", stats),
+            gemConvertedCount = createCountStatistic("gemConvertedCount", stats),
+            friendInvitedCount = createCountStatistic("friendInvitedCount", stats),
+            experienceForToday = createCountStatistic("experienceForToday", stats),
+            petItemEquippedCount = createCountStatistic("petItemEquippedCount", stats),
+            avatarChangeCount = createCountStatistic("avatarChangeCount", stats),
+            petChangeCount = createCountStatistic("petChangeCount", stats),
+            petFedWithPoopCount = createCountStatistic("petFedWithPoopCount", stats),
+            petFedCount = createCountStatistic("petFedCount", stats),
+            feedbackSentCount = createCountStatistic("feedbackSentCount", stats),
+            joinMembershipCount = createCountStatistic("joinMembershipCount", stats),
+            powerUpActivatedCount = createCountStatistic("powerUpActivatedCount", stats),
+            petRevivedCount = createCountStatistic("petRevivedCount", stats),
+            petDiedCount = createCountStatistic("petDiedCount", stats)
+        )
+
+    private fun createCountStatistic(statisticKey: String, stats: Map<String, Any?>) =
+        stats[statisticKey]?.let { it as Long } ?: 0
+
+    private fun createStreakStatistic(
+        statisticKey: String,
+        stats: Map<String, Any?>
+    ) =
+        if (stats.containsKey(statisticKey)) {
+            @Suppress("UNCHECKED_CAST")
+            val statisticData = stats[statisticKey]!! as Map<String, Any>
+            Statistics.StreakStatistic(
+                statisticData["count"]!! as Long,
+                statisticData["lastDate"]?.let {
+                    (it as Long).startOfDayUTC
+                }
+            )
+        } else {
+            Statistics.StreakStatistic()
+        }
 
     override fun toDatabaseObject(entity: Player) =
         DbPlayer().also {
@@ -293,6 +354,7 @@ class FirestorePlayerRepository(
             it.membership = entity.membership.name
             it.preferences = createDbPreferences(entity.preferences).map
             it.achievements = createDbAchievements(entity.achievements)
+            it.statistics = createDbStatistics(entity.statistics)
         }
 
     private fun createDbPet(pet: Pet) =
@@ -400,4 +462,41 @@ class FirestorePlayerRepository(
                 it.unlockDate = a.unlockDate.startOfDayUTC()
             }.map
         }
+
+    private fun createDbStatistics(stats: Statistics) =
+        mutableMapOf<String, Any?>(
+            "questCompletedCount" to stats.questCompletedCount,
+            "questCompletedCountForToday" to stats.questCompletedCountForToday,
+            "questCompletedStreak" to stats.questCompletedStreak.db,
+            "dailyChallengeCompleteStreak" to stats.dailyChallengeCompleteStreak.db,
+            "petHappyStateStreak" to stats.petHappyStateStreak,
+            "awesomenessScoreStreak" to stats.awesomenessScoreStreak,
+            "planDayStreak" to stats.planDayStreak.db,
+            "focusHoursStreak" to stats.focusHoursStreak,
+            "repeatingQuestCreatedCount" to stats.repeatingQuestCreatedCount,
+            "challengeCompletedCount" to stats.challengeCompletedCount,
+            "challengeCreatedCount" to stats.challengeCreatedCount,
+            "gemConvertedCount" to stats.gemConvertedCount,
+            "friendInvitedCount" to stats.friendInvitedCount,
+            "experienceForToday" to stats.experienceForToday,
+            "petItemEquippedCount" to stats.petItemEquippedCount,
+            "avatarChangeCount" to stats.avatarChangeCount,
+            "petChangeCount" to stats.petChangeCount,
+            "petFedWithPoopCount" to stats.petFedWithPoopCount,
+            "petFedCount" to stats.petFedCount,
+            "feedbackSentCount" to stats.feedbackSentCount,
+            "joinMembershipCount" to stats.joinMembershipCount,
+            "powerUpActivatedCount" to stats.powerUpActivatedCount,
+            "petRevivedCount" to stats.petRevivedCount,
+            "petDiedCount" to stats.petDiedCount
+        )
+
+    private fun createDbStreakStatistic(stat: Statistics.StreakStatistic) =
+        mapOf(
+            "count" to stat.count,
+            "lastDate" to stat.lastDate?.startOfDayUTC()
+        )
+
+    private val Statistics.StreakStatistic.db
+        get() = createDbStreakStatistic(this)
 }

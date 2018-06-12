@@ -25,7 +25,7 @@ import io.ipoli.android.common.redux.Action
 import io.ipoli.android.common.view.IconPickerViewState.Type.*
 import io.ipoli.android.pet.AndroidPetAvatar
 import io.ipoli.android.pet.PetAvatar
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.usecase.BuyIconPackUseCase
 import io.ipoli.android.quest.Icon
 import io.ipoli.android.quest.IconPack

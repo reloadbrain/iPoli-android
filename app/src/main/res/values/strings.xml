@@ -878,6 +878,7 @@
     <string name="sign_in_to_add_post_as_quest_message">Please, sign in to schedule a posted quest</string>
     <string name="player_profile_current_xp">Current XP: %s</string>
     <string name="controller_profile_title">Profile</string>
+    <string name="controller_achievement_list_title">Achievements</string>
     <string name="player_profile_level">Level %1$d: %2$s</string>
     <string name="following">Following</string>
     <string name="followers">Followers</string>
@@ -944,16 +945,14 @@
     <string name="achievement_first_challenge_created_desc">Accept your first Challenge</string>
     <string name="achievement_first_reward_used_name">Indulgence</string>
     <string name="achievement_first_reward_used_desc">Use Reward for a first time</string>
-    <string name="achievement_first_daily_challenge_completed_name">Getting serious</string>
-    <string name="achievement_first_daily_challenge_completed_desc">Complete your first Daily Challenge</string>
     <string name="achievement_first_post_created_name">Enthusiast</string>
     <string name="achievement_first_post_created_desc">Share your first Quest</string>
     <string name="achievement_first_avatar_changed_name">Fancy pants</string>
-    <string name="achievement_first_avatar_changed_desc">Change your vm for a fist time</string>
+    <string name="achievement_first_avatar_changed_desc">Choose a new Avatar for yourself</string>
     <string name="achievement_five_posts_created_name">Motivator</string>
     <string name="achievement_five_posts_created_desc">Share 5 posts</string>
     <string name="achievement_complete_10_quests_in_a_day_name">Mean machine</string>
-    <string name="achievement_complete_10_quests_in_a_day_desc">Complete 10 quests in one day</string>
+    <string name="achievement_complete_10_quests_in_a_day_desc">Complete 10 Quests in one day</string>
     <string name="achievement_complete_daily_challenge_5_days_in_row_name">Achiever</string>
     <string name="achievement_complete_daily_challenge_5_days_in_row_desc">Complete your Daily Challenge 5 days in a row</string>
     <string name="achievement_reach_level_15th_name">Warrior</string>
@@ -962,18 +961,14 @@
     <string name="achievement_first_power_up_desc">Use Power Up for a first time</string>
     <string name="achievement_have_1k_coins_name">Richie Rich</string>
     <string name="achievement_have_1k_coins_desc">Have 1000 coins in your inventory</string>
-    <string name="achievement_invite_friend_name">Persuader</string>
-    <string name="achievement_invite_friend_desc">Invite a friend</string>
     <string name="achievement_change_pet_name">Pet lover</string>
-    <string name="achievement_change_pet_desc">Buy a new pet for a first time</string>
+    <string name="achievement_change_pet_desc">Buy a new Pet for yourself</string>
     <string name="achievement_first_pet_died_name">Grim Reaper</string>
-    <string name="achievement_first_pet_died_desc">Let your pet die for a first time</string>
+    <string name="achievement_first_pet_died_desc">Let your own Pet die</string>
     <string name="achievement_first_follow_name">Follower</string>
     <string name="achievement_first_follow_desc">Follow your first Player</string>
     <string name="achievement_first_follower_name">Acknowledged</string>
     <string name="achievement_first_follower_desc">Get your first follower</string>
-    <string name="achievement_first_challenge_completed_name">Gladiator</string>
-    <string name="achievement_first_challenge_completed_desc">Complete your first Challenge</string>
     <string name="achievement_reach_level_20th_name">Leader</string>
     <string name="achievement_reach_level_20th_desc">Reach 20th level</string>
     <string name="achievement_gain_xp_in_a_day_name">Triple digits</string>
@@ -981,7 +976,12 @@
     <string name="achievement_complete_quests_in_row_name">Grand master</string>
     <string name="achievement_complete_quests_in_row_desc">Complete at least 1 quest for 100 days in a row</string>
     <string name="achievement_send_feedback_name">Community Service</string>
-    <string name="achievement_send_feedback_desc">Send Feedback about myPoli</string>
+    <string name="achievement_send_feedback_desc">Send Feedback to myPoli creators</string>
+
+    <string name="achievement_keep_pet_happy_name">Purrr</string>
+    <string name="achievement_keep_pet_happy_name_level_1_desc">Keep your Pet in happy state for 5 days in a row</string>
+    <string name="achievement_keep_pet_happy_name_level_2_desc">Keep your Pet in happy state for 15 days in a row</string>
+    <string name="achievement_keep_pet_happy_name_level_3_desc">Keep your Pet in happy state for 40 days in a row</string>
 
     <string name="pick_challenge_to_start">Pick a challenge to start with</string>
     <string name="growth_awesomeness_score">Awesomeness score</string>
@@ -1397,4 +1397,67 @@
     <string name="growth_no_app_usage_month">You haven\'t spent time on any of your apps this month</string>
     <string name="show_app_data_usage">Show app data usage</string>
     <string name="time_spent_per_app">Time spent per app</string>
+    <string name="achievements">Achievements</string>
+
+    <string name="achievement_awesomeness_streak_name">Maximum Awesomeness</string>
+    <string name="achievement_awesomeness_streak_level_1_desc">Maxout your awesomeness score for 5 days in a row (on days with Plan your day)</string>
+    <string name="achievement_awesomeness_streak_level_2_desc">Maxout your awesomeness score for 20 days in a row (on days with Plan your day)</string>
+    <string name="achievement_awesomeness_streak_level_3_desc">Maxout your awesomeness score for 50 days in a row (on days with Plan your day)</string>
+
+    <string name="achievement_focus_hours_streak_name">Flow</string>
+    <string name="achievement_focus_hours_streak_level_1_desc">Reach focus hours goal for 5 days in a row (on days with Plan your day)</string>
+    <string name="achievement_focus_hours_streak_level_2_desc">Reach focus hours goal for 20 days in a row (on days with Plan your day)</string>
+    <string name="achievement_focus_hours_streak_level_3_desc">Reach focus hours goal for 50 days in a row (on days with Plan your day)</string>
+
+    <string name="achievement_plan_day_streak_name">Strategist</string>
+    <string name="achievement_plan_day_streak_level_1_desc">Plan your day for 5 days in a row (on days with Plan your day)</string>
+    <string name="achievement_plan_day_streak_level_2_desc">Plan your day for 20 days in a row (on days with Plan your day)</string>
+    <string name="achievement_plan_day_streak_level_3_desc">Plan your day for 50 days in a row (on days with Plan your day)</string>
+
+    <string name="achievement_gems_converted_name">Alchemist</string>
+    <string name="achievement_gems_converted_level_1_desc">Convert 1 Gem from Life Coins</string>
+    <string name="achievement_gems_converted_level_2_desc">Convert 20 Gems from Life Coins</string>
+    <string name="achievement_gems_converted_level_3_desc">Convert 50 Gems from Life Coins</string>
+
+    <string name="achievement_level_up_name">Worthy</string>
+    <string name="achievement_level_up_level_1_desc">Show you are worthy. Reach level 10!</string>
+    <string name="achievement_level_up_level_2_desc">Only real heroes can do this! Reach level 30!</string>
+    <string name="achievement_level_up_level_3_desc">Are you a Superhero? Reach level 50!</string>
+
+    <string name="achievement_coins_in_inventory_name">Richie Rich</string>
+    <string name="achievement_coins_in_inventory_level_1_desc">Have 1,000 coins in your inventory</string>
+    <string name="achievement_coins_in_inventory_level_2_desc">Have 5,000 coins in your inventory</string>
+    <string name="achievement_coins_in_inventory_level_3_desc">Have 10,000 coins in your inventory</string>
+
+    <string name="achievement_invite_friend_name">Share the love</string>
+    <string name="achievement_invite_friend_level_1_desc">Invite a friend to join you on your journey in myPoli</string>
+    <string name="achievement_invite_friend_level_2_desc">Invite 5 friends to join you on your journey in myPoli</string>
+    <string name="achievement_invite_friend_level_3_desc">Invite 20 friends to join you on your journey in myPoli</string>
+
+    <string name="achievement_first_pet_item_equipped_name">Stylist</string>
+    <string name="achievement_first_pet_item_equipped_desc">Equip your Pet with an item</string>
+
+    <string name="achievement_complete_daily_challenge_name">Getting serious</string>
+    <string name="achievement_complete_daily_challenge_level_1_desc">Complete Daily Challenge</string>
+    <string name="achievement_complete_daily_challenge_level_2_desc">Complete your Daily Challenge for 10 days in a row</string>
+    <string name="achievement_complete_daily_challenge_level_3_desc">Complete your Daily Challenge for 30 days in a row</string>
+
+    <string name="achievement_challenge_completed_name">Gladiator</string>
+    <string name="achievement_challenge_completed_level_1_desc">Complete a Challenge</string>
+    <string name="achievement_challenge_completed_level_2_desc">Complete 5 Challenges</string>
+    <string name="achievement_challenge_completed_level_3_desc">Complete 15 Challenges</string>
+
+    <string name="achievement_pet_fed_with_poop_name">Poopster</string>
+    <string name="achievement_pet_fed_with_poop_desc">Feed your Pet with poop</string>
+
+    <string name="achievement_pet_fed_name">Caretaker</string>
+    <string name="achievement_pet_fed_desc">Feed your Pet with anything</string>
+
+    <string name="achievement_became_pro_name">Real PRO</string>
+    <string name="achievement_became_pro_desc">Join the myPoli membership program</string>
+
+    <string name="achievement_pet_revived_name">Rejuvenator</string>
+    <string name="achievement_pet_revived_desc">Bring back your Pet from the land of dead</string>
+    <string name="empty_achievements">You still haven\'t earned any Аchievements</string>
+    <string name="hidden_achievement_desc">You have to find what this Achievement is on your own</string>
 </resources>

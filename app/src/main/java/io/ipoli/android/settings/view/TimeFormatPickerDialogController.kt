@@ -14,7 +14,7 @@ import io.ipoli.android.pet.AndroidPetAvatar
 import io.ipoli.android.pet.LoadPetDialogAction
 import io.ipoli.android.pet.PetDialogReducer
 import io.ipoli.android.pet.PetDialogViewState
-import io.ipoli.android.player.Player.Preferences
+import io.ipoli.android.player.data.Player.Preferences
 import kotlinx.android.synthetic.main.view_dialog_header.view.*
 
 /**

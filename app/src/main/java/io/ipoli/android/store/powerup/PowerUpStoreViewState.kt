@@ -6,8 +6,8 @@ import io.ipoli.android.common.DataLoadedAction
 import io.ipoli.android.common.datetime.daysUntil
 import io.ipoli.android.common.mvi.BaseViewState
 import io.ipoli.android.common.redux.Action
-import io.ipoli.android.player.Membership
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Membership
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.store.powerup.sideeffect.BuyPowerUpCompletedAction
 import io.ipoli.android.store.powerup.usecase.BuyPowerUpUseCase
 import org.threeten.bp.LocalDate

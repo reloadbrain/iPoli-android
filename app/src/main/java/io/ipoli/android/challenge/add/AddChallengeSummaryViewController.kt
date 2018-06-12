@@ -140,7 +140,7 @@ class AddChallengeSummaryViewController(args: Bundle? = null) :
             }
 
             VALIDATION_NAME_SUCCESSFUL -> {
-                dispatch(EditChallengeAction.Save)
+                dispatch(EditChallengeAction.SaveNew)
                 router.popCurrentController()
             }
             else -> {

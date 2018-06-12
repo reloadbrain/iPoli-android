@@ -30,7 +30,7 @@ import io.ipoli.android.planday.persistence.Quote
 import io.ipoli.android.planday.scenes.PlanDayMotivationViewController
 import io.ipoli.android.planday.scenes.PlanDayReviewViewController
 import io.ipoli.android.planday.scenes.PlanDayTodayViewController
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.quest.Quest
 import kotlinx.android.synthetic.main.controller_plan_day.view.*
 import org.threeten.bp.LocalDate

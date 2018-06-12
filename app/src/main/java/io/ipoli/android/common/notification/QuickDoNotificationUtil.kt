@@ -14,7 +14,7 @@ import io.ipoli.android.common.text.DurationFormatter
 import io.ipoli.android.common.view.AndroidColor
 import io.ipoli.android.common.view.AndroidIcon
 import io.ipoli.android.common.view.largeIcon
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.quest.Quest
 import io.ipoli.android.quest.receiver.CompleteQuestReceiver
 

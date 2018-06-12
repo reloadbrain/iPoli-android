@@ -3,6 +3,7 @@ package io.ipoli.android.planday.usecase
 import io.ipoli.android.TestUtil
 import io.ipoli.android.common.datetime.Time
 import org.amshove.kluent.`should be in range`
+import org.amshove.kluent.mock
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
@@ -29,8 +30,8 @@ class CalculateAwesomenessScoreUseCaseSpek : Spek({
             val iq = TestUtil.quest
 
             val incompleteCount = totalCount - completeCount
-            return CalculateAwesomenessScoreUseCase().execute(
-                CalculateAwesomenessScoreUseCase.Params(
+            return CalculateAwesomenessScoreUseCase(mock()).execute(
+                CalculateAwesomenessScoreUseCase.Params.WithQuests(
                     quests = 0.until(completeCount).map { cq } +
                         0.until(incompleteCount).map { iq }
                 )

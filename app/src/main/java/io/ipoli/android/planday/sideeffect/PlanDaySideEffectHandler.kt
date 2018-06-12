@@ -31,7 +31,7 @@ object PlanDaySideEffectHandler : AppSideEffectHandler() {
                 DataLoadedAction.ReviewDayQuestsChanged(
                     quests = qs,
                     awesomenessScore = calculateAwesomenessScoreUseCase.execute(
-                        CalculateAwesomenessScoreUseCase.Params(qs)
+                        CalculateAwesomenessScoreUseCase.Params.WithQuests(qs)
                     )
                 )
             )
@@ -43,7 +43,7 @@ object PlanDaySideEffectHandler : AppSideEffectHandler() {
             is PlanDayAction.Load -> {
                 val vs = state.stateFor(PlanDayViewState::class.java)
                 yesterdayQuestsChannelRelay.listen(Unit)
-                if(vs.suggestedQuests == null) {
+                if (vs.suggestedQuests == null) {
                     dispatch(
                         DataLoadedAction.SuggestionsChanged(
                             questRepository.findRandomUnscheduled(
@@ -52,10 +52,10 @@ object PlanDaySideEffectHandler : AppSideEffectHandler() {
                         )
                     )
                 }
-                if(!vs.quoteLoaded) {
+                if (!vs.quoteLoaded) {
                     dispatch(DataLoadedAction.QuoteChanged(quoteRepository.findRandomQuote()))
                 }
-                if(!vs.imageLoaded) {
+                if (!vs.imageLoaded) {
                     dispatch(DataLoadedAction.MotivationalImageChanged(motivationalImageRepository.findRandomImage()))
                 }
             }

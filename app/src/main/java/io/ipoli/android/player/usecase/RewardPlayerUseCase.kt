@@ -3,7 +3,7 @@ package io.ipoli.android.player.usecase
 import io.ipoli.android.common.Reward
 import io.ipoli.android.common.UseCase
 import io.ipoli.android.player.LevelUpScheduler
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.persistence.PlayerRepository
 import io.ipoli.android.quest.Quest
 

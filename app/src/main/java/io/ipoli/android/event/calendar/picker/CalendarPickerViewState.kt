@@ -7,7 +7,7 @@ import io.ipoli.android.common.mvi.BaseViewState
 import io.ipoli.android.common.redux.Action
 import io.ipoli.android.event.Calendar
 import io.ipoli.android.pet.PetAvatar
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 
 /**
  * Created by Venelin Valkov <venelin@mypoli.fun>

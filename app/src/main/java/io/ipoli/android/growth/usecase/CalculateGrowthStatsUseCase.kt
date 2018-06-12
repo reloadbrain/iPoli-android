@@ -5,6 +5,7 @@ import io.ipoli.android.common.datetime.*
 import io.ipoli.android.growth.persistence.AppUsageStat
 import io.ipoli.android.growth.persistence.AppUsageStatRepository
 import io.ipoli.android.planday.usecase.CalculateAwesomenessScoreUseCase
+import io.ipoli.android.planday.usecase.CalculateFocusDurationUseCase
 import io.ipoli.android.quest.Color
 import io.ipoli.android.quest.Icon
 import io.ipoli.android.quest.Quest
@@ -16,26 +17,22 @@ import kotlin.math.roundToInt
 
 class CalculateGrowthStatsUseCase(
     private val calculateAwesomenessScoreUseCase: CalculateAwesomenessScoreUseCase,
+    private val calculateFocusDurationUseCase: CalculateFocusDurationUseCase,
     private val questRepository: QuestRepository,
     private val appUsageStatRepository: AppUsageStatRepository
 ) : UseCase<CalculateGrowthStatsUseCase.Params, CalculateGrowthStatsUseCase.Result> {
 
     private fun calculateAwesomenessScore(quests: List<Quest>) =
         calculateAwesomenessScoreUseCase.execute(
-            CalculateAwesomenessScoreUseCase.Params(
+            CalculateAwesomenessScoreUseCase.Params.WithQuests(
                 quests
             )
         )
 
     private fun calculateProductiveMinutes(quests: List<Quest>) =
-        quests
-            .sumBy {
-                if (it.hasTimer) {
-                    it.actualDuration.asMinutes.intValue
-                } else {
-                    0
-                }
-            }.minutes
+        calculateFocusDurationUseCase.execute(
+            CalculateFocusDurationUseCase.Params.WithQuests(quests)
+        )
 
     override fun execute(parameters: Params): CalculateGrowthStatsUseCase.Result {
 

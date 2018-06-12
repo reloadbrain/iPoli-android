@@ -3,9 +3,9 @@ package io.ipoli.android.pet.usecase
 import io.ipoli.android.TestUtil
 import io.ipoli.android.pet.Pet
 import io.ipoli.android.pet.PetAvatar
-import io.ipoli.android.player.Inventory
-import io.ipoli.android.player.InventoryPet
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Inventory
+import io.ipoli.android.player.data.InventoryPet
+import io.ipoli.android.player.data.Player
 import org.amshove.kluent.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -28,7 +28,13 @@ object BuyPetUseCaseSpek : Spek({
 
             val player = TestUtil.player().copy(
                 pet = pet,
-                inventory = Inventory(pets = setOf(InventoryPet.createFromPet(pet)))
+                inventory = Inventory(
+                    pets = setOf(
+                        InventoryPet.createFromPet(
+                            pet
+                        )
+                    )
+                )
             )
             val exec = { executeUseCase(player, pet.avatar) }
             exec shouldThrow IllegalArgumentException::class

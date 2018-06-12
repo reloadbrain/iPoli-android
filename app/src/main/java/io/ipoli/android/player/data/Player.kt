@@ -1,4 +1,4 @@
-package io.ipoli.android.player
+package io.ipoli.android.player.data
 
 import android.net.Uri
 import io.ipoli.android.Constants
@@ -10,7 +10,8 @@ import io.ipoli.android.pet.Food
 import io.ipoli.android.pet.Pet
 import io.ipoli.android.pet.PetAvatar
 import io.ipoli.android.pet.PetItem
-import io.ipoli.android.player.data.Avatar
+import io.ipoli.android.player.ExperienceForLevelGenerator
+import io.ipoli.android.player.Theme
 import io.ipoli.android.quest.ColorPack
 import io.ipoli.android.quest.Entity
 import io.ipoli.android.quest.IconPack
@@ -48,14 +49,15 @@ data class Player(
     ),
     val preferences: Preferences = Preferences(),
     val achievements: List<UnlockedAchievement> = listOf(),
+    val statistics: Statistics = Statistics(),
     override val updatedAt: Instant = Instant.now(),
     override val createdAt: Instant = Instant.now()
 ) : Entity {
 
     data class UnlockedAchievement(
         val achievement: Achievement,
-        val unlockTime: Time,
-        val unlockDate: LocalDate
+        val unlockTime: Time = Time.now(),
+        val unlockDate: LocalDate = LocalDate.now()
     )
 
     data class Preferences(
@@ -116,7 +118,10 @@ data class Player(
 
     private fun prevLevel(newXp: Long): Int {
         var newLevel = level
-        while (newLevel - 1 > 0 && newXp < ExperienceForLevelGenerator.forLevel(newLevel)) {
+        while (newLevel - 1 > 0 && newXp < ExperienceForLevelGenerator.forLevel(
+                newLevel
+            )
+        ) {
             newLevel--
         }
         return newLevel
@@ -155,7 +160,8 @@ data class Player(
     val experienceForNextLevel: Int
         get() {
             val thisLevelXP = ExperienceForLevelGenerator.forLevel(level).toInt()
-            val nextLevelXP = ExperienceForLevelGenerator.forLevel(level + 1).toInt()
+            val nextLevelXP = ExperienceForLevelGenerator.forLevel(level + 1)
+                .toInt()
             return nextLevelXP - thisLevelXP
         }
 
@@ -241,7 +247,11 @@ data class Inventory(
         val currentPet = getPet(petAvatar)
 
         return copy(
-            pets = this.pets - currentPet + InventoryPet(name, currentPet.avatar, currentPet.items)
+            pets = this.pets - currentPet + InventoryPet(
+                name,
+                currentPet.avatar,
+                currentPet.items
+            )
         )
     }
 

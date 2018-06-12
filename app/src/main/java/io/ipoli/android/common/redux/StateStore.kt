@@ -108,7 +108,7 @@ class StateStore<S : CompositeState<S>>(
     reducers: Set<Reducer<S, *>>,
     sideEffectHandlers: Set<SideEffectHandler<S>> = setOf(),
     private val sideEffectHandlerExecutor: SideEffectHandlerExecutor<S>,
-    middleware: Set<MiddleWare<S>> = setOf(),
+    middleware: List<MiddleWare<S>> = emptyList(),
     coroutineContext: CoroutineContext = CommonPool
 ) : Dispatcher {
 

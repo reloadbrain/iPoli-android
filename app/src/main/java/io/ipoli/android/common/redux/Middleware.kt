@@ -2,6 +2,8 @@ package io.ipoli.android.common.redux
 
 import io.ipoli.android.common.redux.MiddleWare.Result.Continue
 import io.ipoli.android.common.redux.MiddleWare.Result.Stop
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.launch
 
 /**
  * Created by Venelin Valkov <venelin@mypoli.fun>
@@ -26,7 +28,18 @@ interface SimpleMiddleware<in S : State> : MiddleWare<S> {
     fun onExecute(state: S, dispatcher: Dispatcher, action: Action)
 }
 
-class CompositeMiddleware<in S : State>(private val middleware: Set<MiddleWare<S>>) :
+interface AsyncMiddleware<in S : State> : MiddleWare<S> {
+    override fun execute(state: S, dispatcher: Dispatcher, action: Action): MiddleWare.Result {
+        launch(CommonPool) {
+            onExecute(state, dispatcher, action)
+        }
+        return Continue
+    }
+
+    fun onExecute(state: S, dispatcher: Dispatcher, action: Action)
+}
+
+class CompositeMiddleware<in S : State>(private val middleware: List<MiddleWare<S>>) :
     MiddleWare<S> {
 
     override fun execute(state: S, dispatcher: Dispatcher, action: Action): MiddleWare.Result {

@@ -25,6 +25,7 @@ data class DbPlayer(override val map: MutableMap<String, Any?> = mutableMapOf())
     var membership: String by map
     var preferences: MutableMap<String, Any?> by map
     var achievements: List<MutableMap<String, Any?>> by map
+    var statistics: MutableMap<String, Any?> by map
     override var createdAt: Long by map
     override var updatedAt: Long by map
     override var removedAt: Long? by map

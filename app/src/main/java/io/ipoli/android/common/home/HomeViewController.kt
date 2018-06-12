@@ -3,6 +3,7 @@ package io.ipoli.android.common.home
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.content.res.Resources
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
@@ -114,6 +115,7 @@ class HomeViewController(args: Bundle? = null) :
             R.id.repeatingQuests ->
                 changeChildController(RepeatingQuestListViewController())
 
+
             R.id.challenges ->
                 changeChildController(ChallengeListViewController())
 
@@ -170,6 +172,7 @@ class HomeViewController(args: Bundle? = null) :
                                 Bundle().apply { putString("feedback", feedback) }
                             )
                             showShortToast(R.string.feedback_response)
+                            dispatch(HomeAction.FeedbackSent)
                         }
                     }
 
@@ -247,6 +250,7 @@ class HomeViewController(args: Bundle? = null) :
                 renderPlayer(drawerHeaderView, state)
                 renderLevelProgress(state, view)
                 renderTags(view, state)
+                renderAchievements(drawerHeaderView)
             }
 
             PLAYER_CHANGED -> {
@@ -263,6 +267,18 @@ class HomeViewController(args: Bundle? = null) :
                 renderBucketList(state.bucketListQuestCount, view)
             else -> {
             }
+        }
+    }
+
+    private fun renderAchievements(drawerHeaderView: View) {
+        Glide.with(drawerHeaderView.context).load(R.drawable.drawer_achievement_trophy)
+            .apply(RequestOptions.circleCropTransform())
+            .into(drawerHeaderView.achievements)
+
+        (drawerHeaderView.achievements.background as GradientDrawable).setColor(Color.WHITE)
+
+        drawerHeaderView.achievements.onDebounceClick {
+            navigateFromRoot().toAchievementList(VerticalChangeHandler())
         }
     }
 
@@ -335,6 +351,7 @@ class HomeViewController(args: Bundle? = null) :
 
         Glide.with(drawerHeaderView.context).load(state.petHeadImage)
             .apply(RequestOptions.circleCropTransform())
+            .apply(RequestOptions.fitCenterTransform())
             .into(drawerHeaderView.petHeadImage)
 
         (drawerHeaderView.petHeadImage.background as GradientDrawable)

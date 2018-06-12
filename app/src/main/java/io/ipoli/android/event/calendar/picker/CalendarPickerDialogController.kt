@@ -14,7 +14,7 @@ import io.ipoli.android.common.view.children
 import io.ipoli.android.common.view.recyclerview.SimpleViewHolder
 import io.ipoli.android.event.Calendar
 import io.ipoli.android.pet.AndroidPetAvatar
-import io.ipoli.android.player.Player.Preferences.SyncCalendar
+import io.ipoli.android.player.data.Player.Preferences.SyncCalendar
 import kotlinx.android.synthetic.main.dialog_calendar_picker.view.*
 import kotlinx.android.synthetic.main.item_calendar_picker.view.*
 import kotlinx.android.synthetic.main.view_dialog_header.view.*

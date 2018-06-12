@@ -3,8 +3,8 @@ package io.ipoli.android.player.usecase
 import io.ipoli.android.TestUtil
 import io.ipoli.android.challenge.predefined.entity.PredefinedChallenge
 import io.ipoli.android.challenge.usecase.BuyChallengeUseCase
-import io.ipoli.android.player.Inventory
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Inventory
+import io.ipoli.android.player.data.Player
 import org.amshove.kluent.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -28,7 +28,11 @@ class BuyChallengeUseCaseSpek : Spek({
 
         it("should require not bought challenge") {
             val player = TestUtil.player().copy(
-                inventory = Inventory(challenges = setOf(PredefinedChallenge.STRESS_FREE_MIND))
+                inventory = Inventory(
+                    challenges = setOf(
+                        PredefinedChallenge.STRESS_FREE_MIND
+                    )
+                )
             )
             val exec = { executeUseCase(player, PredefinedChallenge.STRESS_FREE_MIND) }
             exec shouldThrow IllegalArgumentException::class

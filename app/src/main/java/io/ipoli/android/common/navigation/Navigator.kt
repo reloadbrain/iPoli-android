@@ -7,6 +7,7 @@ import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
 import com.bluelinelabs.conductor.changehandler.SimpleSwapChangeHandler
 import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
+import io.ipoli.android.achievement.list.AchievementListViewController
 import io.ipoli.android.challenge.add.AddChallengeViewController
 import io.ipoli.android.challenge.edit.ChallengeMotivationsDialogController
 import io.ipoli.android.challenge.edit.EditChallengeViewController
@@ -23,9 +24,9 @@ import io.ipoli.android.pet.PetViewController
 import io.ipoli.android.pet.store.PetStoreViewController
 import io.ipoli.android.planday.PlanDayViewController
 import io.ipoli.android.planday.RescheduleDialogController
-import io.ipoli.android.player.Player
 import io.ipoli.android.player.ProfileViewController
 import io.ipoli.android.player.auth.AuthViewController
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.quest.Color
 import io.ipoli.android.quest.Icon
 import io.ipoli.android.quest.edit.EditQuestViewController
@@ -96,6 +97,10 @@ class Navigator(private val router: Router) {
 
     fun toPet(changeHandler: ControllerChangeHandler? = null) {
         pushController({ PetViewController() }, changeHandler)
+    }
+
+    fun toAchievementList(changeHandler: ControllerChangeHandler? = null) {
+        pushController({ AchievementListViewController() }, changeHandler)
     }
 
     fun toAuth(onboardData: OnboardData?, changeHandler: ControllerChangeHandler? = null) {

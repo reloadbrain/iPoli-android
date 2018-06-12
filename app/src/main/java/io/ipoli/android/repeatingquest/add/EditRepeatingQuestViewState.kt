@@ -59,6 +59,7 @@ sealed class EditRepeatingQuestAction : Action {
     object Save : EditRepeatingQuestAction()
     object LoadName : EditRepeatingQuestAction()
     object LoadSummary : EditRepeatingQuestAction()
+    object SaveNew : EditRepeatingQuestAction()
 }
 
 object EditRepeatingQuestReducer : BaseViewStateReducer<EditRepeatingQuestViewState>() {

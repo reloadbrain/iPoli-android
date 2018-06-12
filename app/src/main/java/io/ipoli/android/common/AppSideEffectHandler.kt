@@ -16,7 +16,7 @@ import io.ipoli.android.common.view.AppWidgetUtil
 import io.ipoli.android.myPoliApp
 import io.ipoli.android.pet.store.PetStoreAction
 import io.ipoli.android.pet.usecase.BuyPetUseCase
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.quest.Quest
 import io.ipoli.android.quest.RepeatingQuest
 import io.ipoli.android.repeatingquest.usecase.FindNextDateForRepeatingQuestUseCase

@@ -9,7 +9,7 @@ import io.ipoli.android.common.mvi.Intent
 import io.ipoli.android.common.mvi.ViewStateRenderer
 import io.ipoli.android.pet.AndroidPetAvatar
 import io.ipoli.android.pet.PetAvatar
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.persistence.PlayerRepository
 import kotlinx.android.synthetic.main.popup_pet_message.view.*
 import kotlinx.coroutines.experimental.launch

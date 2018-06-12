@@ -2,7 +2,9 @@ package io.ipoli.android.common.view
 
 import android.content.Context
 import android.preference.PreferenceManager
+import android.support.annotation.AttrRes
 import android.support.v7.view.ContextThemeWrapper
+import android.util.TypedValue
 import io.ipoli.android.Constants
 
 /**
@@ -24,3 +26,9 @@ val Context.playerTheme: Int
 
 fun Context.asThemedWrapper() =
     ContextThemeWrapper(this, playerTheme)
+
+fun Context.attrData(@AttrRes attributeRes: Int) =
+    TypedValue().let {
+        theme.resolveAttribute(attributeRes, it, true)
+        it.data
+    }

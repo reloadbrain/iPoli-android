@@ -1,5 +1,6 @@
 package io.ipoli.android.common
 
+import io.ipoli.android.achievement.usecase.CreateAchievementItemsUseCase
 import io.ipoli.android.challenge.entity.Challenge
 import io.ipoli.android.common.datetime.Duration
 import io.ipoli.android.common.datetime.Minute
@@ -12,7 +13,7 @@ import io.ipoli.android.growth.usecase.CalculateGrowthStatsUseCase
 import io.ipoli.android.planday.data.Weather
 import io.ipoli.android.planday.persistence.MotivationalImage
 import io.ipoli.android.planday.persistence.Quote
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.quest.Quest
 import io.ipoli.android.quest.RepeatingQuest
 import io.ipoli.android.quest.schedule.agenda.usecase.CreateAgendaItemsUseCase
@@ -83,10 +84,14 @@ sealed class DataLoadedAction : Action {
         val includesAppUsageData: Boolean
     ) : DataLoadedAction()
 
-    data class ProfileStatsChanged(
+    data class ProfileDataChanged(
+        val unlockedAchievements: List<CreateAchievementItemsUseCase.AchievementItem>,
         val streak: Int,
         val averageProductiveDuration: Duration<Minute>
     ) : DataLoadedAction()
+
+    data class AchievementItemsChanged(val achievementListItems: List<CreateAchievementItemsUseCase.AchievementListItem>) :
+        DataLoadedAction()
 }
 
 data class AppDataState(

@@ -314,4 +314,13 @@
     <color name="md_light_text_70">#B3FFFFFF</color>
     <color name="md_light_text_50">#80FFFFFF</color>
     <color name="md_light_text_12">#1FFFFFFF</color>
+
+    <color name="achievement_blue">#31ABF5</color>
+    <color name="achievement_red">#E33E3C</color>
+    <color name="achievement_orange">#F37123</color>
+    <color name="achievement_purple">#A15EE1</color>
+    <color name="achievement_green">#7DC150</color>
+    <color name="achievement_pink">#E9447A</color>
+    <color name="achievement_brown">#8B6F64</color>
+    <color name="achievement_black">#616262</color>
 </resources>

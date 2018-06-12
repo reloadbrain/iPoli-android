@@ -1,7 +1,7 @@
 package io.ipoli.android.store.powerup.usecase
 
 import io.ipoli.android.TestUtil
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.store.powerup.PowerUp
 import org.amshove.kluent.`should be empty`
 import org.amshove.kluent.`should be true`

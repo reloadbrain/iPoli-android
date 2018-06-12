@@ -5,6 +5,7 @@ import com.nhaarman.mockito_kotlin.mock
 import io.ipoli.android.TestUtil
 import io.ipoli.android.common.datetime.*
 import io.ipoli.android.planday.usecase.CalculateAwesomenessScoreUseCase
+import io.ipoli.android.planday.usecase.CalculateFocusDurationUseCase
 import io.ipoli.android.quest.Color
 import io.ipoli.android.quest.Icon
 import io.ipoli.android.quest.Quest
@@ -39,7 +40,8 @@ class CalculateGrowthStatsUseCaseSpek : Spek({
             lastDayOfWeek: DayOfWeek = DateUtils.lastDayOfWeek
         ) =
             CalculateGrowthStatsUseCase(
-                CalculateAwesomenessScoreUseCase(),
+                CalculateAwesomenessScoreUseCase(mock()),
+                CalculateFocusDurationUseCase(mock()),
                 mock {
                     on {
                         findOriginallyScheduledOrCompletedInPeriod(

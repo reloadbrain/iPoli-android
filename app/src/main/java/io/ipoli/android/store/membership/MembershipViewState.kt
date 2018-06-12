@@ -4,7 +4,7 @@ import io.ipoli.android.common.AppState
 import io.ipoli.android.common.BaseViewStateReducer
 import io.ipoli.android.common.mvi.BaseViewState
 import io.ipoli.android.common.redux.Action
-import io.ipoli.android.player.Membership
+import io.ipoli.android.player.data.Membership
 import io.ipoli.android.store.membership.MembershipViewState.StateType.*
 import io.ipoli.android.store.purchase.SubscriptionManager
 

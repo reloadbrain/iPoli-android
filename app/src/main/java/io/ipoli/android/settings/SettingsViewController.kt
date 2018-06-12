@@ -19,7 +19,7 @@ import io.ipoli.android.common.datetime.Time
 import io.ipoli.android.common.privacy.PrivacyPolicyViewController
 import io.ipoli.android.common.redux.android.ReduxViewController
 import io.ipoli.android.common.view.*
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.settings.SettingsViewState.StateType.DATA_CHANGED
 import io.ipoli.android.settings.SettingsViewState.StateType.ENABLE_SYNC_CALENDARS
 import kotlinx.android.synthetic.main.controller_settings.view.*

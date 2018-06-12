@@ -15,6 +15,7 @@ import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler
+import io.ipoli.android.achievement.usecase.UnlockAchievementsUseCase
 import io.ipoli.android.common.AppState
 import io.ipoli.android.common.DataLoadedAction
 import io.ipoli.android.common.LoadDataAction
@@ -29,9 +30,9 @@ import io.ipoli.android.common.redux.SideEffectHandler
 import io.ipoli.android.common.view.Debounce
 import io.ipoli.android.common.view.playerTheme
 import io.ipoli.android.onboarding.OnboardViewController
-import io.ipoli.android.player.Membership
-import io.ipoli.android.player.Player
 import io.ipoli.android.player.auth.AuthAction
+import io.ipoli.android.player.data.Membership
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.store.powerup.AndroidPowerUp
 import io.ipoli.android.store.powerup.buy.BuyPowerUpDialogController
 import io.ipoli.android.store.powerup.middleware.ShowBuyPowerUpAction
@@ -58,6 +59,8 @@ class MainActivity : AppCompatActivity(), Injects<Module>, SideEffectHandler<App
     private val playerRepository by required { playerRepository }
     private val sharedPreferences by required { sharedPreferences }
     private val planDayScheduler by required { planDayScheduler }
+    private val updateAchievementProgressScheduler by required { updateAchievementProgressScheduler }
+    private val unlockAchievementsUseCase by required { unlockAchievementsUseCase }
 
     private val stateStore by required { stateStore }
 
@@ -130,10 +133,11 @@ class MainActivity : AppCompatActivity(), Injects<Module>, SideEffectHandler<App
                         if (p.isLoggedIn() && p.username.isNullOrEmpty()) {
                             Navigator(router).setAuth()
                         } else {
-                            stateStore.dispatch(LoadDataAction.All)
                             startApp(p)
+                            stateStore.dispatch(LoadDataAction.All)
                         }
                     }
+                    unlockAchievementsUseCase.execute(UnlockAchievementsUseCase.Params(p))
                 }
             }
         }
@@ -187,6 +191,7 @@ class MainActivity : AppCompatActivity(), Injects<Module>, SideEffectHandler<App
         } else if (!router.hasRootController()) {
             navigator.setHome()
             planDayScheduler.schedule()
+            updateAchievementProgressScheduler.schedule()
             if (Random().nextInt(10) == 1 && player.membership == Membership.NONE) {
                 showPremiumSnackbar()
             }

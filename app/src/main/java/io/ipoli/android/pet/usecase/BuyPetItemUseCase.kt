@@ -2,7 +2,7 @@ package io.ipoli.android.pet.usecase
 
 import io.ipoli.android.common.UseCase
 import io.ipoli.android.pet.PetItem
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.persistence.PlayerRepository
 
 /**

@@ -66,22 +66,28 @@ object ChallengeSideEffectHandler : AppSideEffectHandler() {
                 )
             }
 
+            is EditChallengeAction.SaveNew -> {
+                val s = state.stateFor(EditChallengeViewState::class.java)
+                val params = SaveChallengeUseCase.Params.WithExistingQuests(
+                    name = s.name,
+                    tags = s.challengeTags,
+                    color = s.color,
+                    icon = s.icon,
+                    difficulty = s.difficulty,
+                    end = s.end,
+                    motivations = listOf(s.motivation1, s.motivation2, s.motivation3),
+                    allQuests = s.allQuests,
+                    selectedQuestIds = s.selectedQuestIds,
+                    note = s.note
+                )
+                saveChallengeUseCase.execute(
+                    params
+                )
+            }
+
             is EditChallengeAction.Save -> {
                 val s = state.stateFor(EditChallengeViewState::class.java)
-                val params = if (s.id.isEmpty()) {
-                    SaveChallengeUseCase.Params.WithExistingQuests(
-                        name = s.name,
-                        tags = s.challengeTags,
-                        color = s.color,
-                        icon = s.icon,
-                        difficulty = s.difficulty,
-                        end = s.end,
-                        motivations = listOf(s.motivation1, s.motivation2, s.motivation3),
-                        allQuests = s.allQuests,
-                        selectedQuestIds = s.selectedQuestIds,
-                        note = s.note
-                    )
-                } else {
+                val params =
                     SaveChallengeUseCase.Params.WithExistingQuests(
                         id = s.id,
                         name = s.name,
@@ -93,7 +99,6 @@ object ChallengeSideEffectHandler : AppSideEffectHandler() {
                         motivations = listOf(s.motivation1, s.motivation2, s.motivation3),
                         note = s.note
                     )
-                }
 
                 saveChallengeUseCase.execute(
                     params

@@ -46,6 +46,7 @@ object RepeatingQuestSideEffectHandler : AppSideEffectHandler() {
                 )
             }
 
+            EditRepeatingQuestAction.SaveNew,
             EditRepeatingQuestAction.Save -> {
                 val rqState = state.stateFor(EditRepeatingQuestViewState::class.java)
                 val r = rqState.reminder
@@ -81,6 +82,7 @@ object RepeatingQuestSideEffectHandler : AppSideEffectHandler() {
 
     override fun canHandle(action: Action) =
         action === EditRepeatingQuestAction.Save
-                || action is RepeatingQuestAction.Remove
-                || action is RepeatingQuestAction.Load
+            || action === EditRepeatingQuestAction.SaveNew
+            || action is RepeatingQuestAction.Remove
+            || action is RepeatingQuestAction.Load
 }

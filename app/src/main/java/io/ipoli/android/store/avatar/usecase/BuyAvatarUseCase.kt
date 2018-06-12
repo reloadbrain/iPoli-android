@@ -1,7 +1,7 @@
 package io.ipoli.android.store.avatar.usecase
 
 import io.ipoli.android.common.UseCase
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.data.Avatar
 import io.ipoli.android.player.persistence.PlayerRepository
 

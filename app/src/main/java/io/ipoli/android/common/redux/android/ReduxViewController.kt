@@ -22,7 +22,6 @@ import com.github.florent37.tutoshowcase.TutoShowcase
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.IIcon
 import io.ipoli.android.Constants
-import io.ipoli.android.R
 import io.ipoli.android.common.*
 import io.ipoli.android.common.datetime.Time
 import io.ipoli.android.common.di.Module
@@ -33,7 +32,7 @@ import io.ipoli.android.common.redux.StateStore
 import io.ipoli.android.common.redux.ViewStateReducer
 import io.ipoli.android.common.view.*
 import io.ipoli.android.myPoliApp
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.quest.Color
 import io.ipoli.android.quest.Icon
 import kotlinx.coroutines.experimental.CoroutineStart

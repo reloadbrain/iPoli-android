@@ -5,8 +5,8 @@ import io.ipoli.android.common.AppState
 import io.ipoli.android.common.NamespaceAction
 import io.ipoli.android.common.di.Module
 import io.ipoli.android.common.redux.Action
+import io.ipoli.android.common.redux.AsyncMiddleware
 import io.ipoli.android.common.redux.Dispatcher
-import io.ipoli.android.common.redux.MiddleWare
 import io.ipoli.android.common.text.toSnakeCase
 import io.ipoli.android.myPoliApp
 import space.traversal.kapsule.Injects
@@ -17,16 +17,15 @@ import space.traversal.kapsule.required
  * Created by Venelin Valkov <venelin@mypoli.fun>
  * on 03/25/2018.
  */
-object LogEventsMiddleWare : MiddleWare<AppState>, Injects<Module> {
+object LogEventsMiddleWare : AsyncMiddleware<AppState>, Injects<Module> {
 
     private val eventLogger by required { eventLogger }
 
-    override fun execute(
+    override fun onExecute(
         state: AppState,
         dispatcher: Dispatcher,
         action: Action
-    ): MiddleWare.Result {
-
+    ) {
         inject(myPoliApp.module(myPoliApp.instance))
 
         val a = (action as? NamespaceAction)?.source ?: action
@@ -36,8 +35,6 @@ object LogEventsMiddleWare : MiddleWare<AppState>, Injects<Module> {
         params.putString("state", a.toString())
 
         eventLogger.logEvent(createEventName(a), params)
-
-        return MiddleWare.Result.Continue
     }
 
     private fun createEventName(action: Action): String {

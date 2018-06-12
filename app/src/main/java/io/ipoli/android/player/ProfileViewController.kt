@@ -1,9 +1,14 @@
 package io.ipoli.android.player
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.support.annotation.ColorRes
+import android.support.annotation.DrawableRes
 import android.support.v4.graphics.drawable.DrawableCompat
+import android.support.v7.widget.GridLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
@@ -13,15 +18,20 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import io.ipoli.android.Constants
 import io.ipoli.android.R
+import io.ipoli.android.achievement.androidAchievement
 import io.ipoli.android.common.datetime.startOfDayUTC
 import io.ipoli.android.common.redux.android.ReduxViewController
 import io.ipoli.android.common.text.LongFormatter
 import io.ipoli.android.common.view.*
+import io.ipoli.android.common.view.recyclerview.BaseRecyclerViewAdapter
+import io.ipoli.android.common.view.recyclerview.RecyclerViewViewModel
+import io.ipoli.android.common.view.recyclerview.SimpleViewHolder
 import io.ipoli.android.pet.AndroidPetAvatar
 import io.ipoli.android.pet.Pet
 import io.ipoli.android.player.ProfileViewState.StateType.*
 import io.ipoli.android.player.data.AndroidAvatar
 import kotlinx.android.synthetic.main.controller_profile.view.*
+import kotlinx.android.synthetic.main.item_achievement.view.*
 import kotlinx.android.synthetic.main.view_loader.view.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Period
@@ -50,10 +60,12 @@ class ProfileViewController(args: Bundle? = null) :
     }
 
     private fun renderDisplayNameLengthHint(length: Int) {
+        @SuppressLint("SetTextI18n")
         view!!.displayNameLengthHint.text = "$length/${Constants.DISPLAY_NAME_MAX_LENGTH}"
     }
 
     private fun renderBioLengthHint(length: Int) {
+        @SuppressLint("SetTextI18n")
         view!!.bioLengthHint.text = "$length/${Constants.BIO_MAX_LENGTH}"
     }
 
@@ -83,13 +95,17 @@ class ProfileViewController(args: Bundle? = null) :
         setToolbar(view.toolbar)
         toolbarTitle = stringRes(R.string.controller_profile_title)
 
-        var coloredBackground = view.coloredBackground.background.mutate();
-        coloredBackground = DrawableCompat.wrap(coloredBackground);
+        var coloredBackground = view.coloredBackground.background.mutate()
+        coloredBackground = DrawableCompat.wrap(coloredBackground)
         DrawableCompat.setTint(coloredBackground, attrData(R.attr.colorPrimary))
-        DrawableCompat.setTintMode(coloredBackground, PorterDuff.Mode.SRC_IN);
+        DrawableCompat.setTintMode(coloredBackground, PorterDuff.Mode.SRC_IN)
 
         val avatarBackground = view.playerAvatarBackground.background as GradientDrawable
         avatarBackground.setColor(attrData(android.R.attr.colorBackground))
+
+        view.achievementList.layoutManager = GridLayoutManager(view.context, 5)
+        view.achievementList.adapter = AchievementAdapter()
+
         return view
     }
 
@@ -145,7 +161,7 @@ class ProfileViewController(args: Bundle? = null) :
     }
 
     override fun handleBack(): Boolean {
-        if(isEdit) {
+        if (isEdit) {
             dispatch(ProfileAction.StopEdit)
             return true
         }
@@ -178,6 +194,8 @@ class ProfileViewController(args: Bundle? = null) :
                 renderPet(state, view)
                 renderPetStats(state, view)
                 renderPlayerStats(state, view)
+
+                renderAchievements(view, state)
             }
 
             EDIT -> {
@@ -193,6 +211,20 @@ class ProfileViewController(args: Bundle? = null) :
                 view.displayName.visible()
                 view.bio.visible()
             }
+        }
+    }
+
+    private fun renderAchievements(
+        view: View,
+        state: ProfileViewState
+    ) {
+        (view.achievementList.adapter as AchievementAdapter).updateAll(state.achievementViewModels)
+        if(state.unlockedAchievements.isEmpty()) {
+            view.achievementList.gone()
+            view.emptyAchievements.visible()
+        } else {
+            view.achievementList.visible()
+            view.emptyAchievements.gone()
         }
     }
 
@@ -259,6 +291,7 @@ class ProfileViewController(args: Bundle? = null) :
             view.username.gone()
         } else {
             view.username.visible()
+            @SuppressLint("SetTextI18n")
             view.username.text = "@${state.username}"
         }
         view.info.text = state.info
@@ -282,6 +315,37 @@ class ProfileViewController(args: Bundle? = null) :
         view.levelProgress.animateProgressFromZero(state.levelXpProgress)
         view.levelText.text = state.levelText
         view.levelProgressText.text = state.levelProgressText
+    }
+
+    data class AchievementViewModel(
+        override val id: String,
+        @DrawableRes val icon: Int,
+        @ColorRes val backgroundColor: Int,
+        val hasStars: Boolean,
+        val starsCount: Int = 0
+    ) : RecyclerViewViewModel
+
+    inner class AchievementAdapter :
+        BaseRecyclerViewAdapter<AchievementViewModel>(R.layout.item_achievement) {
+
+        override fun onBindViewModel(
+            vm: AchievementViewModel,
+            view: View,
+            holder: SimpleViewHolder
+        ) {
+            view.achievementIcon.setImageResource(vm.icon)
+            view.achievementBackground.backgroundTintList =
+                ColorStateList.valueOf(colorRes(vm.backgroundColor))
+            if (vm.hasStars) {
+                view.stars.visible()
+                view.star1.setImageResource(if (vm.starsCount == 0) R.drawable.achievement_star_empty else R.drawable.achievement_star)
+                view.star2.setImageResource(if (vm.starsCount == 1) R.drawable.achievement_star_empty else R.drawable.achievement_star)
+                view.star3.setImageResource(if (vm.starsCount == 2) R.drawable.achievement_star_empty else R.drawable.achievement_star)
+            } else {
+                view.stars.gone()
+            }
+        }
+
     }
 
     private val ProfileViewState.avatarImage
@@ -385,4 +449,18 @@ class ProfileViewController(args: Bundle? = null) :
 
     private val ProfileViewState.lifeCoinsText
         get() = LongFormatter.format(activity!!, coins.toLong())
+
+    private val ProfileViewState.achievementViewModels: List<AchievementViewModel>
+        get() =
+            unlockedAchievements.map {
+                val aa = it.androidAchievement
+                val starsToShow = if (!it.isMultiLevel) -1 else it.currentLevel
+                AchievementViewModel(
+                    id = stringRes(aa.title),
+                    icon = aa.icon,
+                    backgroundColor = aa.color,
+                    hasStars = starsToShow > 0,
+                    starsCount = starsToShow
+                )
+            }
 }

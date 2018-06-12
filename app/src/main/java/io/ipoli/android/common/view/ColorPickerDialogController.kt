@@ -27,7 +27,7 @@ import io.ipoli.android.common.redux.Action
 import io.ipoli.android.common.view.ColorPickerViewState.Type.*
 import io.ipoli.android.pet.AndroidPetAvatar
 import io.ipoli.android.pet.PetAvatar
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.usecase.BuyColorPackUseCase
 import io.ipoli.android.quest.Color
 import io.ipoli.android.quest.ColorPack

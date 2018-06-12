@@ -2,8 +2,8 @@ package io.ipoli.android.store.powerup.usecase
 
 import io.ipoli.android.common.UseCase
 import io.ipoli.android.common.datetime.isAfterOrEqual
-import io.ipoli.android.player.Membership
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Membership
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.persistence.PlayerRepository
 import io.ipoli.android.store.powerup.usecase.RemoveExpiredPowerUpsUseCase.Params
 import org.threeten.bp.LocalDate

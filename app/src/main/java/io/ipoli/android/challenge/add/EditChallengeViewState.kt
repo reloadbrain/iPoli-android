@@ -47,6 +47,7 @@ sealed class EditChallengeAction : Action {
     object Back : EditChallengeAction()
     object Save : EditChallengeAction()
     object LoadFirstPage : EditChallengeAction()
+    object SaveNew : EditChallengeAction()
 }
 
 object EditChallengeReducer : BaseViewStateReducer<EditChallengeViewState>() {

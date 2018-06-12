@@ -4,7 +4,7 @@ import io.ipoli.android.Constants
 import io.ipoli.android.common.UseCase
 import io.ipoli.android.common.datetime.Time
 import io.ipoli.android.pet.Pet
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.persistence.PlayerRepository
 import io.ipoli.android.quest.Quest
 import io.ipoli.android.quest.data.persistence.QuestRepository

@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
 import io.ipoli.android.Constants
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 
 interface Migration {
     val fromVersion: Int
@@ -323,6 +323,27 @@ class MigrationFrom104To105 : FirestoreMigration() {
                 "bio" to null,
                 "schemaVersion" to Constants.SCHEMA_VERSION,
                 "preferences.isQuickDoNotificationEnabled" to Constants.DEFAULT_QUICK_DO_NOTIFICATION_ENABLED
+            )
+        )
+        Tasks.await(batch.commit())
+    }
+
+}
+
+class MigrationFrom105To106 : FirestoreMigration() {
+    override val fromVersion = 105
+
+    override val toVersion = 106
+
+    override suspend fun execute(database: FirebaseFirestore, playerId: String) {
+
+        val batch = database.batch()
+        batch.update(
+            playerRef(database, playerId),
+            mapOf(
+                "statistics" to mapOf<String, Any>(),
+                "schemaVersion" to Constants.SCHEMA_VERSION,
+                "achievements" to emptyList<Map<String, Any>>()
             )
         )
         Tasks.await(batch.commit())

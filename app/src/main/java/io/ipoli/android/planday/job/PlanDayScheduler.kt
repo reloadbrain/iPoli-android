@@ -163,7 +163,7 @@ interface PlanDayScheduler {
     fun schedule()
 }
 
-class AndroidPlanDayScheduler : PlanDayScheduler {
+class AndroidPlanDayScheduler(private val context: Context) : PlanDayScheduler {
 
     override fun scheduleAfter(minutes: Duration<Minute>) {
         JobRequest.Builder(SnoozedPlanDayJob.TAG)
@@ -175,11 +175,10 @@ class AndroidPlanDayScheduler : PlanDayScheduler {
 
     override fun schedule() {
         launch(CommonPool) {
-            val context = myPoliApp.instance
 
             val kap = Kapsule<Module>()
             val playerRepository by kap.required { playerRepository }
-            kap.inject(myPoliApp.module(context))
+            kap.inject(myPoliApp.module(this@AndroidPlanDayScheduler.context))
 
             val p = playerRepository.find()
 

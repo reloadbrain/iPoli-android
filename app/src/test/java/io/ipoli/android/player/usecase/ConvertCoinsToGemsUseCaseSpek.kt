@@ -2,7 +2,7 @@ package io.ipoli.android.player.usecase
 
 import io.ipoli.android.Constants
 import io.ipoli.android.TestUtil
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should be instance of`
 import org.amshove.kluent.`should be`

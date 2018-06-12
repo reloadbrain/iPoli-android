@@ -8,8 +8,8 @@ import io.ipoli.android.common.mvi.BaseViewState
 import io.ipoli.android.common.redux.Action
 import io.ipoli.android.pet.PetAvatar
 import io.ipoli.android.pet.PetState
-import io.ipoli.android.player.Player
 import io.ipoli.android.player.data.Avatar
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.tag.Tag
 
 /**
@@ -21,6 +21,7 @@ sealed class HomeAction : Action {
     object HideTags : HomeAction()
     object ShowTags : HomeAction()
     object ShowPlayerSetup : HomeAction()
+    object FeedbackSent : HomeAction()
 }
 
 object HomeReducer : BaseViewStateReducer<HomeViewState>() {

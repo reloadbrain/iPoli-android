@@ -8,7 +8,7 @@ import io.ipoli.android.common.redux.Dispatcher
 import io.ipoli.android.common.redux.MiddleWare
 import io.ipoli.android.growth.GrowthAction
 import io.ipoli.android.note.NoteAction
-import io.ipoli.android.player.Inventory
+import io.ipoli.android.player.data.Inventory
 import io.ipoli.android.quest.show.QuestAction
 import io.ipoli.android.repeatingquest.add.EditRepeatingQuestAction
 import io.ipoli.android.settings.SettingsAction

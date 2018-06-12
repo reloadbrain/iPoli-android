@@ -5,7 +5,7 @@ import io.ipoli.android.common.BaseViewStateReducer
 import io.ipoli.android.common.DataLoadedAction
 import io.ipoli.android.common.mvi.BaseViewState
 import io.ipoli.android.common.redux.Action
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.data.Avatar
 import io.ipoli.android.store.avatar.sideeffect.BuyAvatarCompletedAction
 import io.ipoli.android.store.avatar.usecase.BuyAvatarUseCase

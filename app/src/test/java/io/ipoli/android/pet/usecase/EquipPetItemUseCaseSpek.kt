@@ -5,9 +5,9 @@ import io.ipoli.android.pet.Pet
 import io.ipoli.android.pet.PetAvatar
 import io.ipoli.android.pet.PetEquipment
 import io.ipoli.android.pet.PetItem
-import io.ipoli.android.player.Inventory
-import io.ipoli.android.player.InventoryPet
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Inventory
+import io.ipoli.android.player.data.InventoryPet
+import io.ipoli.android.player.data.Player
 import org.amshove.kluent.`should equal`
 import org.amshove.kluent.shouldThrow
 import org.jetbrains.spek.api.Spek
@@ -53,7 +53,11 @@ class EquipPetItemUseCaseSpek : Spek({
                 ),
                 inventory = Inventory(
                     pets = setOf(
-                        InventoryPet("Pencho", PetAvatar.ELEPHANT, setOf(PetItem.RED_HAT))
+                        InventoryPet(
+                            "Pencho",
+                            PetAvatar.ELEPHANT,
+                            setOf(PetItem.RED_HAT)
+                        )
                     )
                 )
             )
@@ -72,7 +76,11 @@ class EquipPetItemUseCaseSpek : Spek({
                 ),
                 inventory = Inventory(
                     pets = setOf(
-                        InventoryPet("Pencho", PetAvatar.ELEPHANT, setOf(PetItem.RED_HAT))
+                        InventoryPet(
+                            "Pencho",
+                            PetAvatar.ELEPHANT,
+                            setOf(PetItem.RED_HAT)
+                        )
                     )
                 )
             )

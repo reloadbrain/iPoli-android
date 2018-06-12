@@ -71,7 +71,7 @@ object StateStoreSpek : Spek({
         }
 
         fun createStore(
-            middleware: Set<MiddleWare<TestState>> = setOf(),
+            middleware: List<MiddleWare<TestState>> = listOf(),
             sideEffectHandlers: Set<SideEffectHandler<TestState>> = setOf()
         ) =
             StateStore(
@@ -89,7 +89,7 @@ object StateStoreSpek : Spek({
         }
 
         it("should not call reducer with stopping middleware") {
-            createStore(setOf(StopMiddleware())).dispatch(TestAction())
+            createStore(listOf(StopMiddleware())).dispatch(TestAction())
 
             executeCount.`should be equal to`(0)
         }

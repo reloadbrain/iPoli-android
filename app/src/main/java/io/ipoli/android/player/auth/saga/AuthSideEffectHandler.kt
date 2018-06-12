@@ -10,8 +10,8 @@ import io.ipoli.android.common.LoadDataAction
 import io.ipoli.android.common.api.Api
 import io.ipoli.android.common.redux.Action
 import io.ipoli.android.pet.Pet
-import io.ipoli.android.player.AuthProvider
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.AuthProvider
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.auth.AuthAction
 import io.ipoli.android.player.auth.AuthViewState
 import io.ipoli.android.player.auth.UsernameValidator
@@ -36,6 +36,7 @@ object AuthSideEffectHandler : AppSideEffectHandler() {
     private val removeExpiredPowerUpsScheduler by required { removeExpiredPowerUpsScheduler }
     private val checkMembershipStatusScheduler by required { checkMembershipStatusScheduler }
     private val planDayScheduler by required { planDayScheduler }
+    private val updateAchievementProgressScheduler by required { updateAchievementProgressScheduler }
     private val saveRepeatingQuestUseCase by required { saveRepeatingQuestUseCase }
     private val migrationExecutor by required { migrationExecutor }
 
@@ -329,5 +330,6 @@ object AuthSideEffectHandler : AppSideEffectHandler() {
         removeExpiredPowerUpsScheduler.schedule()
         checkMembershipStatusScheduler.schedule()
         planDayScheduler.schedule()
+        updateAchievementProgressScheduler.schedule()
     }
 }

@@ -229,7 +229,7 @@ data class GrowthViewState(
     val timeSpent: Duration<Minute>,
     val experience: Int,
     val coins: Int,
-    val productiveHoursGoal: Int = Constants.DAILY_PRODUCTIVE_HOURS_GOAL,
+    val productiveHoursGoal: Int = Constants.DAILY_FOCUS_HOURS_GOAL,
     val tagTimeSpent: List<CalculateGrowthStatsUseCase.TagTimeSpent>,
     val challengeProgress: List<ChallengeProgress>,
     val showProgressCount: Int,

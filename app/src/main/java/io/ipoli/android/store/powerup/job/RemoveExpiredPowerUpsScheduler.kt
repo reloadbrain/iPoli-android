@@ -4,7 +4,7 @@ import com.evernote.android.job.DailyJob
 import com.evernote.android.job.JobRequest
 import io.ipoli.android.common.di.Module
 import io.ipoli.android.myPoliApp
-import io.ipoli.android.player.Membership
+import io.ipoli.android.player.data.Membership
 import io.ipoli.android.store.powerup.usecase.RemoveExpiredPowerUpsUseCase
 import org.threeten.bp.LocalDate
 import space.traversal.kapsule.Injects

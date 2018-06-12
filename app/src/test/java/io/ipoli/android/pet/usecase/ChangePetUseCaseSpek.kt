@@ -5,9 +5,9 @@ import io.ipoli.android.pet.Pet
 import io.ipoli.android.pet.PetAvatar
 import io.ipoli.android.pet.PetEquipment
 import io.ipoli.android.pet.PetItem
-import io.ipoli.android.player.Inventory
-import io.ipoli.android.player.InventoryPet
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Inventory
+import io.ipoli.android.player.data.InventoryPet
+import io.ipoli.android.player.data.Player
 import org.amshove.kluent.`should be null`
 import org.amshove.kluent.`should be`
 import org.amshove.kluent.shouldThrow

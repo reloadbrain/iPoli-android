@@ -4,7 +4,7 @@ import io.ipoli.android.Constants
 import io.ipoli.android.common.UseCase
 import io.ipoli.android.pet.Pet
 import io.ipoli.android.pet.PetAvatar
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.persistence.PlayerRepository
 
 /**

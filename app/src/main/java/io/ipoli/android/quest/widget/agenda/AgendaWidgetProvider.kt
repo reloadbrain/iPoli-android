@@ -116,7 +116,6 @@ class AgendaWidgetProvider : AppWidgetProvider() {
     private fun createQuestListIntent(context: Context, widgetId: Int) =
         Intent(context, AgendaWidgetService::class.java).apply {
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
-            data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
         }
 
     private fun createQuestClickIntent(context: Context, widgetId: Int): PendingIntent {

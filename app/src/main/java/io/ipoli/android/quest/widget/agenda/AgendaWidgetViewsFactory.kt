@@ -25,7 +25,7 @@ import io.ipoli.android.common.view.listItemIcon
 import io.ipoli.android.event.Event
 import io.ipoli.android.event.usecase.FindEventsBetweenDatesUseCase
 import io.ipoli.android.myPoliApp
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.quest.Quest
 import org.threeten.bp.LocalDate
 import space.traversal.kapsule.Injects

@@ -7,6 +7,15 @@ import android.view.LayoutInflater
 import com.amplitude.api.Amplitude
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.firestore.FirebaseFirestore
+import io.ipoli.android.achievement.job.AndroidShowUnlockedAchievementsScheduler
+import io.ipoli.android.achievement.job.AndroidUpdateAchievementProgressScheduler
+import io.ipoli.android.achievement.job.ShowUnlockedAchievementsScheduler
+import io.ipoli.android.achievement.job.UpdateAchievementProgressScheduler
+import io.ipoli.android.achievement.middleware.AchievementProgressMiddleWare
+import io.ipoli.android.achievement.sideeffect.AchievementListSideEffectHandler
+import io.ipoli.android.achievement.usecase.CreateAchievementItemsUseCase
+import io.ipoli.android.achievement.usecase.UnlockAchievementsUseCase
+import io.ipoli.android.achievement.usecase.UpdateAchievementProgressUseCase
 import io.ipoli.android.challenge.persistence.ChallengeRepository
 import io.ipoli.android.challenge.persistence.FirestoreChallengeRepository
 import io.ipoli.android.challenge.predefined.usecase.SchedulePredefinedChallengeUseCase
@@ -63,6 +72,7 @@ import io.ipoli.android.planday.persistence.MotivationalImageRepository
 import io.ipoli.android.planday.persistence.QuoteRepository
 import io.ipoli.android.planday.sideeffect.PlanDaySideEffectHandler
 import io.ipoli.android.planday.usecase.CalculateAwesomenessScoreUseCase
+import io.ipoli.android.planday.usecase.CalculateFocusDurationUseCase
 import io.ipoli.android.player.AndroidLevelDownScheduler
 import io.ipoli.android.player.AndroidLevelUpScheduler
 import io.ipoli.android.player.LevelDownScheduler
@@ -289,6 +299,10 @@ interface AndroidModule {
 
     val dailyChallengeCompleteScheduler: DailyChallengeCompleteScheduler
 
+    val updateAchievementProgressScheduler: UpdateAchievementProgressScheduler
+
+    val showUnlockedAchievementsScheduler: ShowUnlockedAchievementsScheduler
+
     val permissionChecker: PermissionChecker
 
     val job: Job
@@ -341,6 +355,12 @@ class MainAndroidModule(
     override val dailyChallengeCompleteScheduler
         get() = AndroidDailyChallengeCompleteScheduler()
 
+    override val updateAchievementProgressScheduler
+        get() = AndroidUpdateAchievementProgressScheduler()
+
+    override val showUnlockedAchievementsScheduler
+        get() = AndroidShowUnlockedAchievementsScheduler(context)
+
     override val database get() = Firestore.instance
 
     override val eventLogger
@@ -350,7 +370,7 @@ class MainAndroidModule(
         )
 
     override val planDayScheduler
-        get() = AndroidPlanDayScheduler()
+        get() = AndroidPlanDayScheduler(context)
 
     override val permissionChecker
         get() = AndroidPermissionChecker(context)
@@ -367,7 +387,8 @@ class MainAndroidModule(
                 MigrationFrom101To102(),
                 MigrationFrom102To103(),
                 MigrationFrom103To104(),
-                MigrationFrom104To105()
+                MigrationFrom104To105(),
+                MigrationFrom105To106()
             )
         )
 
@@ -393,6 +414,7 @@ class MainUseCaseModule : UseCaseModule, Injects<Module> {
     private val planDayScheduler by required { planDayScheduler }
     private val dailyChallengeRepository by required { dailyChallengeRepository }
     private val dailyChallengeCompleteScheduler by required { dailyChallengeCompleteScheduler }
+    private val showUnlockedAchievementsScheduler by required { showUnlockedAchievementsScheduler }
     private val appUsageStatRepository by required { appUsageStatRepository }
 
     override val loadScheduleForDateUseCase
@@ -672,7 +694,10 @@ class MainUseCaseModule : UseCaseModule, Injects<Module> {
         get() = RescheduleQuestUseCase(questRepository, reminderScheduler)
 
     override val calculateAwesomenessScoreUseCase
-        get() = CalculateAwesomenessScoreUseCase()
+        get() = CalculateAwesomenessScoreUseCase(questRepository)
+
+    override val calculateFocusDurationUseCase
+        get() = CalculateFocusDurationUseCase(questRepository)
 
     override val savePlanDayTimeUseCase
         get() = SavePlanDayTimeUseCase(playerRepository, planDayScheduler)
@@ -698,6 +723,7 @@ class MainUseCaseModule : UseCaseModule, Injects<Module> {
     override val calculateGrowthStatsUseCase
         get() = CalculateGrowthStatsUseCase(
             calculateAwesomenessScoreUseCase,
+            calculateFocusDurationUseCase,
             questRepository,
             appUsageStatRepository
         )
@@ -713,6 +739,19 @@ class MainUseCaseModule : UseCaseModule, Injects<Module> {
 
     override val saveProfileUseCase
         get() = SaveProfileUseCase(playerRepository)
+
+    override val unlockAchievementsUseCase
+        get() = UnlockAchievementsUseCase(playerRepository, showUnlockedAchievementsScheduler)
+
+    override val updateAchievementProgressUseCase
+        get() = UpdateAchievementProgressUseCase(
+            playerRepository,
+            calculateAwesomenessScoreUseCase,
+            calculateFocusDurationUseCase
+        )
+
+    override val createAchievementItemsUseCase
+        get() = CreateAchievementItemsUseCase()
 }
 
 interface UseCaseModule {
@@ -796,6 +835,7 @@ interface UseCaseModule {
     val createBucketListItemsUseCase: CreateBucketListItemsUseCase
     val rescheduleQuestUseCase: RescheduleQuestUseCase
     val calculateAwesomenessScoreUseCase: CalculateAwesomenessScoreUseCase
+    val calculateFocusDurationUseCase: CalculateFocusDurationUseCase
     val savePlanDayTimeUseCase: SavePlanDayTimeUseCase
     val savePlanDaysUseCase: SavePlanDaysUseCase
     val saveTimeFormatUseCase: SaveTimeFormatUseCase
@@ -808,6 +848,9 @@ interface UseCaseModule {
     val findAverageFocusedDurationForPeriodUseCase: FindAverageFocusedDurationForPeriodUseCase
     val saveQuickDoNotificationSettingUseCase: SaveQuickDoNotificationSettingUseCase
     val saveProfileUseCase: SaveProfileUseCase
+    val unlockAchievementsUseCase: UnlockAchievementsUseCase
+    val updateAchievementProgressUseCase: UpdateAchievementProgressUseCase
+    val createAchievementItemsUseCase: CreateAchievementItemsUseCase
 }
 
 interface PresenterModule {
@@ -870,12 +913,14 @@ class AndroidStateStoreModule : StateStoreModule, Injects<Module> {
                 MigrationSideEffectHandler,
                 DailyChallengeSideEffectHandler,
                 GrowthSideEffectHandler,
-                ProfileSideEffectHandler
+                ProfileSideEffectHandler,
+                AchievementListSideEffectHandler
             ),
             sideEffectHandlerExecutor = CoroutineSideEffectHandlerExecutor(job + CommonPool),
-            middleware = setOf(
+            middleware = listOf(
                 LogEventsMiddleWare,
-                CheckEnabledPowerUpMiddleWare
+                CheckEnabledPowerUpMiddleWare,
+                AchievementProgressMiddleWare
             )
         )
     }

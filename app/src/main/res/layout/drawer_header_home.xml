@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/colorPrimary">
 
     <RelativeLayout
@@ -32,7 +33,8 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/white_circular_background"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                tools:src="@drawable/avatar_07"/>
 
             <TextView
                 android:id="@+id/drawerPlayerTitle"
@@ -129,6 +131,17 @@
 
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/achievements"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignTop="@+id/petContainer"
+            android:layout_marginEnd="16dp"
+            android:scaleType="fitCenter"
+            tools:src="@drawable/drawer_achievement_trophy"
+            android:layout_toStartOf="@+id/petContainer"
+            android:background="@drawable/white_circular_background" />
 
     </RelativeLayout>
 

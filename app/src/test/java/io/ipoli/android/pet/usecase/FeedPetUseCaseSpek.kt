@@ -6,8 +6,8 @@ import io.ipoli.android.pet.Food
 import io.ipoli.android.pet.Pet
 import io.ipoli.android.pet.PetAvatar
 import io.ipoli.android.pet.usecase.FeedPetUseCase.FoodReward.*
-import io.ipoli.android.player.Inventory
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Inventory
+import io.ipoli.android.player.data.Player
 import org.amshove.kluent.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -138,7 +138,12 @@ class FeedPetUseCaseSpek : Spek({
             it("should like meat & fruit when it is omnivorous") {
                 val player = player().let {
                     it.copy(
-                        inventory = Inventory(mapOf(Food.STEAK to 1, Food.BANANA to 1)),
+                        inventory = Inventory(
+                            mapOf(
+                                Food.STEAK to 1,
+                                Food.BANANA to 1
+                            )
+                        ),
                         pet = it.pet.copy(
                             avatar = PetAvatar.CHICKEN,
                             moodPoints = Pet.GOOD_MIN_MOOD_POINTS,

@@ -1,8 +1,8 @@
 package io.ipoli.android.player.usecase
 
 import io.ipoli.android.TestUtil
-import io.ipoli.android.player.Inventory
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Inventory
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.quest.IconPack
 import org.amshove.kluent.*
 import org.jetbrains.spek.api.Spek

@@ -25,7 +25,7 @@ import io.ipoli.android.planday.PlanDayAction
 import io.ipoli.android.planday.PlanDayReducer
 import io.ipoli.android.planday.PlanDayViewState
 import io.ipoli.android.planday.data.Weather
-import io.ipoli.android.player.Player.Preferences.TemperatureUnit.CELSIUS
+import io.ipoli.android.player.data.Player.Preferences.TemperatureUnit.CELSIUS
 import kotlinx.android.synthetic.main.controller_plan_day_motivation.view.*
 import space.traversal.kapsule.required
 

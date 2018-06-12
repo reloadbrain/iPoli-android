@@ -1,8 +1,8 @@
 package io.ipoli.android.store.membership.usecase
 
 import io.ipoli.android.common.UseCase
-import io.ipoli.android.player.Membership
-import io.ipoli.android.player.Player
+import io.ipoli.android.player.data.Membership
+import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.persistence.PlayerRepository
 
 /**
