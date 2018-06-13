@@ -83,6 +83,8 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 
         view.questStartTimer.onDebounceClick {
             it.gone()
+            view.addPomodoro.gone()
+            view.removePomodoro.gone()
             TransitionManager.beginDelayedTransition(view.appbar, ChangeBounds())
             val p = view.appbar.layoutParams
             p.height = CoordinatorLayout.LayoutParams.MATCH_PARENT
@@ -91,7 +93,7 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
             view.questPomodoroCountText.gone()
 
 
-            view.postDelayed({
+//            view.postDelayed({
                 //                val tp = view.timerProgress.layoutParams
 //                tp.height = LinearLayout.LayoutParams.WRAP_CONTENT
 //                view.timerProgress.layoutParams = tp
@@ -101,7 +103,7 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 
                 val icon = IconicsDrawable(view.startStop.context)
                     .icon(iconImage)
-                    .color(attrData(R.attr.colorAccent))
+                    .colorRes(R.color.md_light_text_70)
                     .sizeDp(22)
 
                 view.startStop.setImageDrawable(icon)
@@ -113,7 +115,7 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 
                 handler.postDelayed(updateTimer, 1000)
 //                view.timerProgressLayout.requestLayout()
-            }, 300)
+//            }, 300)
         }
 
         handler.postDelayed(updateTimer, 1000)

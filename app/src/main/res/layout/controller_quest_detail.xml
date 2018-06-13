@@ -98,7 +98,8 @@
                     android:layout_height="450dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/questName">
 
                     <ProgressBar
                         android:id="@+id/timerProgress"
@@ -161,6 +162,7 @@
                             android:layout_marginStart="8dp"
                             android:text="25:00"
                             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                            android:textColor="@color/md_white"
                             app:layout_constraintBottom_toTopOf="@+id/startStop"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"

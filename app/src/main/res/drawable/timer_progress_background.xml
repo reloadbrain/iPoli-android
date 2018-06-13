@@ -6,7 +6,7 @@
             android:shape="ring"
             android:thickness="10dp"
             android:useLevel="true">
-            <solid android:color="@color/md_grey_300" />
+            <solid android:color="@color/md_light_text_50" />
         </shape>
     </item>
 
@@ -21,7 +21,7 @@
                 android:shape="ring"
                 android:thickness="10dp"
                 android:useLevel="true">
-                <solid android:color="?attr/colorAccent" />
+                <solid android:color="@color/md_white" />
             </shape>
         </rotate>
     </item>
