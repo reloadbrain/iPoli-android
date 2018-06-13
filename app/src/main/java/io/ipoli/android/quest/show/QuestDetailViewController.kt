@@ -161,6 +161,22 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
             }
         }
 
+        val minusIcon = IconicsDrawable(view.context)
+            .icon(Ionicons.Icon.ion_minus)
+            .colorRes(R.color.md_light_text_70)
+            .sizeDp(26)
+            .paddingDp(6)
+
+        view.removePomodoro.setImageDrawable(minusIcon)
+
+        val addIcon = IconicsDrawable(view.context)
+            .icon(Ionicons.Icon.ion_plus)
+            .colorRes(R.color.md_light_text_70)
+            .sizeDp(26)
+            .paddingDp(6)
+
+        view.addPomodoro.setImageDrawable(addIcon)
+
         return view
     }
 
@@ -169,6 +185,11 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
     override fun onAttach(view: View) {
         super.onAttach(view)
         showBackButton()
+    }
+
+    override fun onDetach(view: View) {
+        (activity as MainActivity).supportActionBar?.setDisplayShowTitleEnabled(true)
+        super.onDetach(view)
     }
 
     private fun colorLayout(
@@ -190,6 +211,7 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
             QuestViewState.StateType.SHOW_POMODORO -> {
                 colorLayout(state, view)
                 view.questName.text = state.questName
+                toolbarTitle = state.questName
                 view.questNote.setMarkdown(state.note)
             }
 

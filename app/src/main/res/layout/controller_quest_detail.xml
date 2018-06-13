@@ -22,15 +22,14 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:statusBarScrim="@color/md_white">
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/questName"
                     style="@style/TextAppearance.AppCompat.Headline"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginEnd="16dp"
@@ -38,7 +37,10 @@
                     android:ellipsize="marquee"
                     android:gravity="center_horizontal"
                     android:maxLines="3"
-                    android:paddingTop="?attr/actionBarSize" />
+                    android:paddingTop="?attr/actionBarSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Chronometer
                     android:id="@+id/questCountdownTime"
@@ -49,18 +51,46 @@
                     android:layout_marginBottom="32dp"
                     android:layout_marginTop="16dp"
                     android:textColor="@color/md_white"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/questName" />
 
-                <Chronometer
+                <TextView
                     android:id="@+id/questPomodoroCountText"
-                    style="@style/TextAppearance.AppCompat.Display1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="32dp"
                     android:layout_marginTop="16dp"
                     android:text="For 6 Pomodoros"
-                    android:textColor="@color/md_white" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/questName" />
+
+
+                <ImageButton
+                    android:id="@+id/removePomodoro"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:layout_constraintBottom_toBottomOf="@+id/questPomodoroCountText"
+                    app:layout_constraintEnd_toStartOf="@+id/questPomodoroCountText"
+                    app:layout_constraintTop_toTopOf="@+id/questPomodoroCountText" />
+
+                <ImageButton
+                    android:id="@+id/addPomodoro"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:layout_constraintBottom_toBottomOf="@+id/questPomodoroCountText"
+                    app:layout_constraintStart_toEndOf="@+id/questPomodoroCountText"
+                    app:layout_constraintTop_toTopOf="@+id/questPomodoroCountText" />
 
                 <FrameLayout
                     android:id="@+id/timerProgressLayout"
@@ -141,7 +171,7 @@
                     </android.support.constraint.ConstraintLayout>
 
                 </FrameLayout>
-            </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -154,109 +184,115 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
-            android:id="@+id/questSubQuestsLabel"
-            style="@style/SectionTitle"
-            android:layout_marginTop="16dp"
-            android:text="Sub Quests"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ProgressBar
-            android:id="@+id/subQuestListProgress"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:max="100"
-            android:progress="0"
-            android:progressDrawable="@drawable/quest_sub_quests_progress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/questSubQuestsLabel" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/subQuestListProgressLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/md_light_text_70"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/doneLabel"
-            app:layout_constraintEnd_toEndOf="@+id/subQuestListProgress"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/subQuestListProgress"
-            app:layout_constraintTop_toTopOf="@+id/subQuestListProgress"
-            app:layout_constraintVertical_chainStyle="packed" />
+            <TextView
+                android:id="@+id/questSubQuestsLabel"
+                style="@style/SectionTitle"
+                android:layout_marginTop="16dp"
+                android:text="Sub Quests"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/doneLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/done"
-            android:textAllCaps="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/md_light_text_70"
-            app:layout_constraintBottom_toBottomOf="@+id/subQuestListProgress"
-            app:layout_constraintEnd_toEndOf="@+id/subQuestListProgressLabel"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/subQuestListProgressLabel"
-            app:layout_constraintTop_toBottomOf="@+id/subQuestListProgressLabel" />
+            <ProgressBar
+                android:id="@+id/subQuestListProgress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/quest_sub_quests_progress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/questSubQuestsLabel" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/questSubQuestList"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subQuestListProgress" />
+            <TextView
+                android:id="@+id/subQuestListProgressLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/md_light_text_70"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/doneLabel"
+                app:layout_constraintEnd_toEndOf="@+id/subQuestListProgress"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/subQuestListProgress"
+                app:layout_constraintTop_toTopOf="@+id/subQuestListProgress"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-        <io.ipoli.android.common.view.EditTextBackEvent
-            android:id="@+id/newSubQuestName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:background="@null"
-            android:hint="@string/add_sub_quest"
-            android:imeOptions="actionDone"
-            android:inputType="textCapSentences"
-            android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/md_dark_text_87"
-            android:textColorHint="@color/md_dark_text_54"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/questSubQuestList"
-            app:layout_constraintTop_toBottomOf="@+id/questSubQuestList" />
+            <TextView
+                android:id="@+id/doneLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/done"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/md_light_text_70"
+                app:layout_constraintBottom_toBottomOf="@+id/subQuestListProgress"
+                app:layout_constraintEnd_toEndOf="@+id/subQuestListProgressLabel"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/subQuestListProgressLabel"
+                app:layout_constraintTop_toBottomOf="@+id/subQuestListProgressLabel" />
 
-        <TextView
-            android:id="@+id/questNoteLabel"
-            style="@style/SectionTitle"
-            android:text="Note"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newSubQuestName" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/questSubQuestList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subQuestListProgress" />
 
-        <TextView
-            android:id="@+id/questNote"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/questNoteLabel" />
+            <io.ipoli.android.common.view.EditTextBackEvent
+                android:id="@+id/newSubQuestName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:hint="@string/add_sub_quest"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/md_dark_text_87"
+                android:textColorHint="@color/md_dark_text_54"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/questSubQuestList"
+                app:layout_constraintTop_toBottomOf="@+id/questSubQuestList" />
 
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/questNoteLabel"
+                style="@style/SectionTitle"
+                android:text="Note"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/newSubQuestName" />
+
+            <TextView
+                android:id="@+id/questNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/questNoteLabel" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/questStartTimer"
