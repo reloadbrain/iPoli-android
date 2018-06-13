@@ -182,6 +182,8 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 
         view.addPomodoro.setImageDrawable(addIcon)
 
+        view.timerProgress.setProgressFormatter(null)
+
         return view
     }
 
@@ -298,9 +300,9 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
         view: View,
         state: QuestViewState
     ) {
-        view.timerProgress.max = state.maxTimerProgress
-        view.timerProgress.secondaryProgress = state.maxTimerProgress
-        view.timerProgress.progress = state.timerProgress
+        view.timerProgress.max = state.maxTimerProgress * 2
+//        view.timerProgress.secondaryProgress = state.maxTimerProgress
+        view.timerProgress.progress = state.timerProgress * 2
     }
 
     private fun renderTimerIndicatorsProgress(view: View, state: QuestViewState) {

@@ -101,20 +101,22 @@
                     android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@+id/questName">
 
-                    <ProgressBar
+                    <com.dinuscxj.progressbar.CircleProgressBar
                         android:id="@+id/timerProgress"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="8dp"
-                        android:indeterminate="false"
-                        android:max="100"
-                        android:progress="0"
-                        android:progressDrawable="@drawable/timer_progress_background"
-                        android:secondaryProgress="1500" />
+                        android:layout_marginEnd="48dp"
+                        android:layout_marginStart="48dp"
+                        android:layout_marginTop="48dp"
+                        app:line_count="60"
+                        app:line_width="0.5dp"
+                        app:progress_stroke_cap="round"
+
+                        app:progress_background_color="@color/md_light_text_50"
+                        app:progress_end_color="@color/md_white"
+                        app:progress_start_color="@color/md_white"
+                        app:progress_stroke_width="10dp" />
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
