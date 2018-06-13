@@ -35,6 +35,7 @@ import io.ipoli.android.common.view.recyclerview.ReorderItemHelper
 import io.ipoli.android.common.view.recyclerview.SimpleViewHolder
 import io.ipoli.android.note.NoteViewController
 import io.ipoli.android.quest.CompletedQuestViewController
+import io.ipoli.android.quest.show.QuestDetailViewController.PomodoroProgress.*
 import io.ipoli.android.tag.Tag
 import kotlinx.android.synthetic.main.controller_quest.view.*
 import kotlinx.android.synthetic.main.item_quest_sub_quest.view.*
@@ -548,7 +549,7 @@ class QuestViewController : ReduxViewController<QuestAction, QuestViewState, Que
         }
     }
 
-    private fun addProgressIndicator(view: View, progress: PomodoroProgress) {
+    private fun addProgressIndicator(view: View, progress: QuestDetailViewController.PomodoroProgress) {
         val progressView = createProgressView(view)
         val progressDrawable = resources!!.getDrawable(
             R.drawable.timer_progress_item,
@@ -556,30 +557,30 @@ class QuestViewController : ReduxViewController<QuestAction, QuestViewState, Que
         ) as GradientDrawable
 
         when (progress) {
-            PomodoroProgress.INCOMPLETE_WORK -> {
+            INCOMPLETE_WORK -> {
                 progressDrawable.setColor(colorRes(R.color.md_grey_300))
             }
 
-            PomodoroProgress.COMPLETE_WORK -> {
+            COMPLETE_WORK -> {
                 progressDrawable.setColor(attrData(R.attr.colorAccent))
             }
 
-            PomodoroProgress.INCOMPLETE_SHORT_BREAK -> {
+            INCOMPLETE_SHORT_BREAK -> {
                 progressDrawable.setColor(colorRes(R.color.md_grey_300))
                 progressView.setScale(0.5f)
             }
 
-            PomodoroProgress.COMPLETE_SHORT_BREAK -> {
+            COMPLETE_SHORT_BREAK -> {
                 progressDrawable.setColor(attrData(R.attr.colorAccent))
                 progressView.setScale(0.5f)
             }
 
-            PomodoroProgress.INCOMPLETE_LONG_BREAK -> {
+            INCOMPLETE_LONG_BREAK -> {
                 progressDrawable.setColor(colorRes(R.color.md_grey_300))
                 progressView.setScale(0.75f)
             }
 
-            PomodoroProgress.COMPLETE_LONG_BREAK -> {
+            COMPLETE_LONG_BREAK -> {
                 progressDrawable.setColor(attrData(R.attr.colorAccent))
                 progressView.setScale(0.75f)
             }
@@ -710,11 +711,3 @@ class QuestViewController : ReduxViewController<QuestAction, QuestViewState, Que
     }
 }
 
-enum class PomodoroProgress {
-    INCOMPLETE_SHORT_BREAK,
-    COMPLETE_SHORT_BREAK,
-    INCOMPLETE_LONG_BREAK,
-    COMPLETE_LONG_BREAK,
-    INCOMPLETE_WORK,
-    COMPLETE_WORK
-}

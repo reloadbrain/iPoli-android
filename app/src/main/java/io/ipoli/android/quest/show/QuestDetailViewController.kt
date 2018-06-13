@@ -182,7 +182,7 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 
         view.addPomodoro.setImageDrawable(addIcon)
 
-        view.timerProgress.setProgressFormatter(null)
+        view.timerProgressCircle.setProgressFormatter(null)
 
         return view
     }
@@ -225,7 +225,7 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 
             QuestViewState.StateType.RUNNING -> {
                 view.timerLabel.text = state.timerLabel
-                view.timerProgress.progress = state.timerProgress
+                view.timerProgressCircle.progress = state.timerProgress
                 renderTimerProgress(view, state)
             }
 
@@ -300,9 +300,9 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
         view: View,
         state: QuestViewState
     ) {
-        view.timerProgress.max = state.maxTimerProgress * 2
+        view.timerProgressCircle.max = state.maxTimerProgress * 2
 //        view.timerProgress.secondaryProgress = state.maxTimerProgress
-        view.timerProgress.progress = state.timerProgress * 2
+        view.timerProgressCircle.progress = state.timerProgress * 2
     }
 
     private fun renderTimerIndicatorsProgress(view: View, state: QuestViewState) {
@@ -482,4 +482,13 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
                 isCompleted = it.completedAtDate != null
             )
         }
+
+    enum class PomodoroProgress {
+        INCOMPLETE_SHORT_BREAK,
+        COMPLETE_SHORT_BREAK,
+        INCOMPLETE_LONG_BREAK,
+        COMPLETE_LONG_BREAK,
+        INCOMPLETE_WORK,
+        COMPLETE_WORK
+    }
 }

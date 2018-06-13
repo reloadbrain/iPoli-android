@@ -10,6 +10,7 @@ import io.ipoli.android.common.redux.Action
 import io.ipoli.android.quest.Color
 import io.ipoli.android.quest.Quest
 import io.ipoli.android.quest.TimeRange
+import io.ipoli.android.quest.show.QuestDetailViewController.PomodoroProgress
 import io.ipoli.android.quest.show.QuestViewState.StateType.*
 import io.ipoli.android.quest.show.sideeffect.TimerStartedAction
 import io.ipoli.android.quest.show.view.formatter.TimerFormatter
@@ -270,7 +271,7 @@ object QuestReducer : BaseViewStateReducer<QuestViewState>() {
     private fun findCurrentProgressIndicator(timeRanges: List<TimeRange>): Int =
         timeRanges.indexOfFirst { it.start != null && it.end == null }
 
-    private fun createPomodoroProgress(timeRange: TimeRange): PomodoroProgress {
+    private fun createPomodoroProgress(timeRange: TimeRange): QuestDetailViewController.PomodoroProgress {
         return when (timeRange.type) {
             TimeRange.Type.POMODORO_SHORT_BREAK -> {
                 if (timeRange.end != null) {
