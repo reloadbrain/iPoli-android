@@ -8,7 +8,7 @@ import io.ipoli.android.achievement.usecase.CreateAchievementItemsUseCase
 
 enum class Achievement {
     FIRST_QUEST_COMPLETED,
-//    COMPLETE_10_QUESTS_IN_A_DAY,
+    COMPLETE_10_QUESTS_IN_A_DAY,
 
     KEEP_PET_HAPPY_5_DAY_STREAK,
     KEEP_PET_HAPPY_15_DAY_STREAK,
@@ -62,13 +62,13 @@ enum class Achievement {
     PET_FED_WITH_POOP,
     PET_FED,
     BECAME_PRO,
-//    PET_REVIVED,
+    PET_REVIVED,
 
     FIRST_AVATAR_CHANGED,
     FIRST_POWER_UP_ACTIVATED,
     FIRST_PET_CHANGED,
     PET_DIED,
-    //    COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW,
+    COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW,
     FEEDBACK_SENT;
 }
 
@@ -242,8 +242,8 @@ enum class AndroidAchievement(
         mapOf(
             1 to R.string.achievement_pet_revived_desc
         ),
-        R.color.md_blue_500,
-        R.drawable.ic_armor
+        R.color.achievement_brown,
+        R.drawable.achievement_pet_revived
     ),
     FIRST_AVATAR_CHANGED(
         R.string.achievement_first_avatar_changed_name,
@@ -284,8 +284,8 @@ enum class AndroidAchievement(
         mapOf(
             1 to R.string.achievement_complete_quests_in_row_desc
         ),
-        R.color.md_blue_500,
-        R.drawable.ic_armor
+        R.color.achievement_blue,
+        R.drawable.achievement_complete_quest_for_100_days_in_a_row
     ),
     FEEDBACK_SENT(
         R.string.achievement_send_feedback_name,
@@ -303,8 +303,8 @@ val CreateAchievementItemsUseCase.AchievementItem.androidAchievement
             is CreateAchievementItemsUseCase.AchievementItem.QuestCompleted ->
                 AndroidAchievement.FIRST_QUEST_COMPLETED
 
-//            is CreateAchievementItemsUseCase.AchievementItem.CompletedQuestsInADay ->
-//                AndroidAchievement.COMPLETE_10_QUESTS_IN_A_DAY
+            is CreateAchievementItemsUseCase.AchievementItem.CompletedQuestsInADay ->
+                AndroidAchievement.COMPLETE_10_QUESTS_IN_A_DAY
 
             is CreateAchievementItemsUseCase.AchievementItem.KeepPetHappyStreak ->
                 AndroidAchievement.KEEP_PET_HAPPY
@@ -357,8 +357,8 @@ val CreateAchievementItemsUseCase.AchievementItem.androidAchievement
             is CreateAchievementItemsUseCase.AchievementItem.BecomePro ->
                 AndroidAchievement.BECAME_PRO
 
-//            is CreateAchievementItemsUseCase.AchievementItem.RevivePet ->
-//                AndroidAchievement.PET_REVIVED
+            is CreateAchievementItemsUseCase.AchievementItem.RevivePet ->
+                AndroidAchievement.PET_REVIVED
 
             is CreateAchievementItemsUseCase.AchievementItem.FirstAvatarChanged ->
                 AndroidAchievement.FIRST_AVATAR_CHANGED
@@ -372,8 +372,8 @@ val CreateAchievementItemsUseCase.AchievementItem.androidAchievement
             is CreateAchievementItemsUseCase.AchievementItem.PetDied ->
                 AndroidAchievement.PET_DIED
 
-//            is CreateAchievementItemsUseCase.AchievementItem.CompleteQuestFor100DaysInARow ->
-//                AndroidAchievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW
+            is CreateAchievementItemsUseCase.AchievementItem.CompleteQuestFor100DaysInARow ->
+                AndroidAchievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW
 
             is CreateAchievementItemsUseCase.AchievementItem.FeedbackSent ->
                 AndroidAchievement.FEEDBACK_SENT
@@ -385,6 +385,8 @@ val Achievement.androidAchievement
         when (this) {
 
             Achievement.FIRST_QUEST_COMPLETED -> AndroidAchievement.FIRST_QUEST_COMPLETED
+
+            Achievement.COMPLETE_10_QUESTS_IN_A_DAY -> AndroidAchievement.COMPLETE_10_QUESTS_IN_A_DAY
 
             Achievement.KEEP_PET_HAPPY_5_DAY_STREAK,
             Achievement.KEEP_PET_HAPPY_15_DAY_STREAK,
@@ -438,13 +440,16 @@ val Achievement.androidAchievement
             Achievement.PET_FED_WITH_POOP -> AndroidAchievement.PET_FED_WITH_POOP
             Achievement.PET_FED -> AndroidAchievement.PET_FED
             Achievement.BECAME_PRO -> AndroidAchievement.BECAME_PRO
-//    PET_REVIVED,
+
+            Achievement.PET_REVIVED -> AndroidAchievement.PET_REVIVED
 
             Achievement.FIRST_AVATAR_CHANGED -> AndroidAchievement.FIRST_AVATAR_CHANGED
             Achievement.FIRST_POWER_UP_ACTIVATED -> AndroidAchievement.FIRST_POWER_UP_ACTIVATED
             Achievement.FIRST_PET_CHANGED -> AndroidAchievement.FIRST_PET_CHANGED
             Achievement.PET_DIED -> AndroidAchievement.PET_DIED
-//    COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW,
+
+            Achievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW -> AndroidAchievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW
+
             Achievement.FEEDBACK_SENT -> AndroidAchievement.FEEDBACK_SENT
 
         }

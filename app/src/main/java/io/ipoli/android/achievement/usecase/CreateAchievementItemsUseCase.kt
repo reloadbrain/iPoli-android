@@ -24,10 +24,10 @@ class CreateAchievementItemsUseCase :
                 stats.questCompletedCount.toInt(),
                 singleLevelFrom(Achievement.FIRST_QUEST_COMPLETED, at)
             ),
-//            AchievementItem.CompletedQuestsInADay(
-//                stats.questCompletedCountForToday.toInt(),
-//                singleLevelFrom(Achievement.COMPLETE_10_QUESTS_IN_A_DAY, at)
-//            ),
+            AchievementItem.CompletedQuestsInADay(
+                stats.questCompletedCountForToday.toInt(),
+                singleLevelFrom(Achievement.COMPLETE_10_QUESTS_IN_A_DAY, at)
+            ),
             AchievementItem.KeepPetHappyStreak(
                 stats.petHappyStateStreak.toInt(),
                 currentLevelFrom(
@@ -147,10 +147,10 @@ class CreateAchievementItemsUseCase :
                 stats.joinMembershipCount.toInt(),
                 singleLevelFrom(Achievement.BECAME_PRO, at)
             ),
-//            AchievementItem.RevivePet(
-//                stats.petRevivedCount.toInt(),
-//                singleLevelFrom(Achievement.PET_REVIVED, at)
-//            ),
+            AchievementItem.RevivePet(
+                stats.petRevivedCount.toInt(),
+                singleLevelFrom(Achievement.PET_REVIVED, at)
+            ),
             AchievementItem.FirstAvatarChanged(
                 stats.avatarChangeCount.toInt(),
                 singleLevelFrom(Achievement.FIRST_AVATAR_CHANGED, at)
@@ -167,10 +167,10 @@ class CreateAchievementItemsUseCase :
                 stats.petDiedCount.toInt(),
                 singleLevelFrom(Achievement.PET_DIED, at)
             ),
-//            AchievementItem.CompleteQuestFor100DaysInARow(
-//                stats.questCompletedStreak.count.toInt(),
-//                singleLevelFrom(Achievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW, at)
-//            ),
+            AchievementItem.CompleteQuestFor100DaysInARow(
+                stats.questCompletedStreak.count.toInt(),
+                singleLevelFrom(Achievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW, at)
+            ),
             AchievementItem.FeedbackSent(
                 stats.feedbackSentCount.toInt(),
                 singleLevelFrom(Achievement.FEEDBACK_SENT, at)
@@ -246,15 +246,15 @@ class CreateAchievementItemsUseCase :
                 currentLevel = currentLevel
             )
 
-//        data class CompletedQuestsInADay(
-//            override val progress: Int,
-//            override val currentLevel: Int = 0
-//        ) :
-//            AchievementItem(
-//                progress = progress,
-//                levelProgressRequirements = mapOf(1 to 10),
-//                currentLevel = currentLevel
-//            )
+        data class CompletedQuestsInADay(
+            override val progress: Int,
+            override val currentLevel: Int = 0
+        ) :
+            AchievementItem(
+                progress = progress,
+                levelProgressRequirements = mapOf(1 to 10),
+                currentLevel = currentLevel
+            )
 
         data class KeepPetHappyStreak(
             override val progress: Int,
@@ -463,16 +463,16 @@ class CreateAchievementItemsUseCase :
             currentLevel = currentLevel
         )
 
-//        data class RevivePet(
-//            override val progress: Int,
-//            override val currentLevel: Int = 0
-//        ) : AchievementItem(
-//            progress = progress,
-//            levelProgressRequirements = mapOf(
-//                1 to 1
-//            ),
-//            currentLevel = currentLevel
-//        )
+        data class RevivePet(
+            override val progress: Int,
+            override val currentLevel: Int = 0
+        ) : AchievementItem(
+            progress = progress,
+            levelProgressRequirements = mapOf(
+                1 to 1
+            ),
+            currentLevel = currentLevel
+        )
 
         data class FirstAvatarChanged(
             override val progress: Int,
@@ -518,16 +518,16 @@ class CreateAchievementItemsUseCase :
             currentLevel = currentLevel
         )
 
-//        data class CompleteQuestFor100DaysInARow(
-//            override val progress: Int,
-//            override val currentLevel: Int = 0
-//        ) : AchievementItem(
-//            progress = progress,
-//            levelProgressRequirements = mapOf(
-//                1 to 1
-//            ),
-//            currentLevel = currentLevel
-//        )
+        data class CompleteQuestFor100DaysInARow(
+            override val progress: Int,
+            override val currentLevel: Int = 0
+        ) : AchievementItem(
+            progress = progress,
+            levelProgressRequirements = mapOf(
+                1 to 1
+            ),
+            currentLevel = currentLevel
+        )
 
         data class FeedbackSent(
             override val progress: Int,

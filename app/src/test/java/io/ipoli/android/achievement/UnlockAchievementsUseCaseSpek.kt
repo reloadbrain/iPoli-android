@@ -6,10 +6,7 @@ import io.ipoli.android.achievement.usecase.UnlockAchievementsUseCase.Params
 import io.ipoli.android.pet.Food
 import io.ipoli.android.player.data.Player
 import io.ipoli.android.player.data.Statistics
-import org.amshove.kluent.`should be empty`
-import org.amshove.kluent.`should be equal to`
-import org.amshove.kluent.`should contain`
-import org.amshove.kluent.mock
+import org.amshove.kluent.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
@@ -48,53 +45,53 @@ class UnlockAchievementsUseCaseSpek : Spek({
             achievements.`should contain`(Achievement.FIRST_QUEST_COMPLETED)
         }
 
-//        it("should unlock 10 completed Quests in a day") {
-//            val achievements = executeUseCase(
-//                TestUtil.player().copy(
-//                    achievements = listOf(
-//                        Achievement.FIRST_QUEST_COMPLETED.asUnlocked
-//                    ),
-//                    statistics = Statistics(questCompletedCountForToday = 10)
-//                ),
-//                Params.EventType.QuestCompleted
-//            )
-//            achievements.size.`should be equal to`(1)
-//            achievements.`should contain`(Achievement.COMPLETE_10_QUESTS_IN_A_DAY)
-//        }
-//
-//        it("should unlock complete Quests for 100 days in a row") {
-//            val achievements = executeUseCase(
-//                TestUtil.player().copy(
-//                    achievements = emptyList(),
-//                    statistics = Statistics(
-//                        questCompletedStreak = Statistics.StreakStatistic(
-//                            99,
-//                            LocalDate.now().minusDays(1)
-//                        )
-//                    )
-//                ),
-//                Params.EventType.QuestCompleted
-//            )
-//            achievements.size.`should be equal to`(2)
-//            achievements.`should contain`(Achievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW)
-//        }
-//
-//        it("should not unlock complete Quests for 100 days in a row") {
-//            val achievements = executeUseCase(
-//                TestUtil.player().copy(
-//                    achievements = emptyList(),
-//                    statistics = Statistics(
-//                        questCompletedStreak = Statistics.StreakStatistic(
-//                            99,
-//                            LocalDate.now()
-//                        )
-//                    )
-//                ),
-//                Params.EventType.QuestCompleted
-//            )
-//            achievements.size.`should be equal to`(1)
-//            achievements.`should not contain`(Achievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW)
-//        }
+        it("should unlock 10 completed Quests in a day") {
+            val achievements = executeUseCase(
+                TestUtil.player().copy(
+                    achievements = listOf(
+                        Achievement.FIRST_QUEST_COMPLETED.asUnlocked
+                    ),
+                    statistics = Statistics(questCompletedCountForToday = 10)
+                ),
+                Params.EventType.QuestCompleted
+            )
+            achievements.size.`should be equal to`(1)
+            achievements.`should contain`(Achievement.COMPLETE_10_QUESTS_IN_A_DAY)
+        }
+
+        it("should unlock complete Quests for 100 days in a row") {
+            val achievements = executeUseCase(
+                TestUtil.player().copy(
+                    achievements = emptyList(),
+                    statistics = Statistics(
+                        questCompletedStreak = Statistics.StreakStatistic(
+                            99,
+                            LocalDate.now().minusDays(1)
+                        )
+                    )
+                ),
+                Params.EventType.QuestCompleted
+            )
+            achievements.size.`should be equal to`(2)
+            achievements.`should contain`(Achievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW)
+        }
+
+        it("should not unlock complete Quests for 100 days in a row") {
+            val achievements = executeUseCase(
+                TestUtil.player().copy(
+                    achievements = emptyList(),
+                    statistics = Statistics(
+                        questCompletedStreak = Statistics.StreakStatistic(
+                            99,
+                            LocalDate.now()
+                        )
+                    )
+                ),
+                Params.EventType.QuestCompleted
+            )
+            achievements.size.`should be equal to`(1)
+            achievements.`should not contain`(Achievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW)
+        }
 
         it("should not unlock already unlocked achievement") {
             val achievements = executeUseCase(
@@ -416,19 +413,19 @@ class UnlockAchievementsUseCaseSpek : Spek({
             achievements.`should contain`(Achievement.FIRST_POWER_UP_ACTIVATED)
         }
 
-//        it("should unlock pet revived") {
-//            val achievements = executeUseCase(
-//                TestUtil.player().copy(
-//                    achievements = emptyList(),
-//                    statistics = Statistics(
-//                        petRevivedCount = 0
-//                    )
-//                ),
-//                eventType = Params.EventType.PetRevived
-//            )
-//            achievements.size.`should be equal to`(1)
-//            achievements.`should contain`(Achievement.PET_REVIVED)
-//        }
+        it("should unlock pet revived") {
+            val achievements = executeUseCase(
+                TestUtil.player().copy(
+                    achievements = emptyList(),
+                    statistics = Statistics(
+                        petRevivedCount = 0
+                    )
+                ),
+                eventType = Params.EventType.PetRevived
+            )
+            achievements.size.`should be equal to`(1)
+            achievements.`should contain`(Achievement.PET_REVIVED)
+        }
 
         it("should unlock pet died") {
             val achievements = executeUseCase(

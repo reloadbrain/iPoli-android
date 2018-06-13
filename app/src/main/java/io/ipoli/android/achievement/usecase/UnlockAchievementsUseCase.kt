@@ -189,11 +189,11 @@ class UnlockAchievementsUseCase(
             Achievement.FIRST_QUEST_COMPLETED ->
                 stats.questCompletedCount >= 1
 
-//            Achievement.COMPLETE_10_QUESTS_IN_A_DAY ->
-//                stats.questCompletedCountForToday >= 10
+            Achievement.COMPLETE_10_QUESTS_IN_A_DAY ->
+                stats.questCompletedCountForToday >= 10
 
-//            Achievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW ->
-//                stats.questCompletedStreak.count >= 100
+            Achievement.COMPLETE_QUEST_FOR_100_DAYS_IN_A_ROW ->
+                stats.questCompletedStreak.count >= 100
 
             Achievement.COMPLETE_DAILY_CHALLENGE ->
                 stats.dailyChallengeCompleteStreak.count >= 1
@@ -318,8 +318,8 @@ class UnlockAchievementsUseCase(
             Achievement.FIRST_POWER_UP_ACTIVATED ->
                 stats.powerUpActivatedCount >= 1
 
-//            Achievement.PET_REVIVED ->
-//                stats.petRevivedCount >= 1
+            Achievement.PET_REVIVED ->
+                stats.petRevivedCount >= 1
 
             Achievement.PET_DIED ->
                 stats.petDiedCount >= 1

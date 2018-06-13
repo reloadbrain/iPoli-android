@@ -1,7 +1,6 @@
 package io.ipoli.android.quest.data.persistence
 
 import android.content.SharedPreferences
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -603,7 +602,7 @@ class FirestoreQuestRepository(
             val ref = remindersReference.document(it.id)
             batch.delete(ref)
         }
-        Tasks.await(batch.commit())
+        batch.commit()
     }
 
     private fun saveReminders(quest: Quest, reminders: List<Reminder>) {
@@ -668,7 +667,7 @@ class FirestoreQuestRepository(
             val ref = remindersReference.document(it.id)
             batch.delete(ref)
         }
-        Tasks.await(batch.commit())
+        batch.commit()
     }
 
     override fun remove(id: String) {
