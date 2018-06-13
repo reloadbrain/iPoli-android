@@ -2,6 +2,7 @@ package io.ipoli.android.quest.show
 
 import android.graphics.Paint
 import android.graphics.PorterDuff
+import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.os.Handler
@@ -33,6 +34,8 @@ import io.ipoli.android.common.view.recyclerview.ReorderItemHelper
 import io.ipoli.android.common.view.recyclerview.SimpleViewHolder
 import kotlinx.android.synthetic.main.controller_quest_detail.view.*
 import kotlinx.android.synthetic.main.item_quest_sub_quest.view.*
+import kotlinx.android.synthetic.main.item_timer_progress.view.*
+import timber.log.Timber
 
 class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewState, QuestReducer> {
 
@@ -94,26 +97,26 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 
 
 //            view.postDelayed({
-                //                val tp = view.timerProgress.layoutParams
+            //                val tp = view.timerProgress.layoutParams
 //                tp.height = LinearLayout.LayoutParams.WRAP_CONTENT
 //                view.timerProgress.layoutParams = tp
-                view.timerProgressLayout.visible()
+            view.timerProgressLayout.visible()
 
-                val iconImage = Ionicons.Icon.ion_stop
+            val iconImage = Ionicons.Icon.ion_stop
 
-                val icon = IconicsDrawable(view.startStop.context)
-                    .icon(iconImage)
-                    .colorRes(R.color.md_light_text_70)
-                    .sizeDp(22)
+            val icon = IconicsDrawable(view.startStop.context)
+                .icon(iconImage)
+                .colorRes(R.color.md_light_text_70)
+                .sizeDp(22)
 
-                view.startStop.setImageDrawable(icon)
+            view.startStop.setImageDrawable(icon)
 
-                updateTimer = {
-                    dispatch(QuestAction.Tick)
-                    handler.postDelayed(updateTimer, 1000)
-                }
-
+            updateTimer = {
+                dispatch(QuestAction.Tick)
                 handler.postDelayed(updateTimer, 1000)
+            }
+
+            handler.postDelayed(updateTimer, 1000)
 //                view.timerProgressLayout.requestLayout()
 //            }, 300)
         }
@@ -215,6 +218,7 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
                 view.questName.text = state.questName
                 toolbarTitle = state.questName
                 view.questNote.setMarkdown(state.note)
+                renderTimerIndicatorsProgress(view, state)
             }
 
             QuestViewState.StateType.RUNNING -> {
@@ -298,6 +302,67 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
         view.timerProgress.secondaryProgress = state.maxTimerProgress
         view.timerProgress.progress = state.timerProgress
     }
+
+    private fun renderTimerIndicatorsProgress(view: View, state: QuestViewState) {
+        view.timerProgressContainer.removeAllViews()
+        Timber.d("AAA ${state.pomodoroProgress}")
+        state.pomodoroProgress.forEach {
+            addProgressIndicator(view, it)
+        }
+    }
+
+    private fun addProgressIndicator(view: View, progress: PomodoroProgress) {
+        val progressView = createProgressView(view)
+        val progressDrawable = resources!!.getDrawable(
+            R.drawable.timer_progress_item,
+            view.context.theme
+        ) as GradientDrawable
+
+        when (progress) {
+            PomodoroProgress.INCOMPLETE_WORK -> {
+                progressDrawable.setColor(colorRes(R.color.md_grey_300))
+            }
+
+            PomodoroProgress.COMPLETE_WORK -> {
+                progressDrawable.setColor(attrData(R.attr.colorAccent))
+            }
+
+            PomodoroProgress.INCOMPLETE_SHORT_BREAK -> {
+                progressDrawable.setColor(colorRes(R.color.md_grey_300))
+                progressView.setScale(0.5f)
+            }
+
+            PomodoroProgress.COMPLETE_SHORT_BREAK -> {
+                progressDrawable.setColor(attrData(R.attr.colorAccent))
+                progressView.setScale(0.5f)
+            }
+
+            PomodoroProgress.INCOMPLETE_LONG_BREAK -> {
+                progressDrawable.setColor(colorRes(R.color.md_grey_300))
+                progressView.setScale(0.75f)
+            }
+
+            PomodoroProgress.COMPLETE_LONG_BREAK -> {
+                progressDrawable.setColor(attrData(R.attr.colorAccent))
+                progressView.setScale(0.75f)
+            }
+        }
+        progressView.timerItemProgress.background = progressDrawable
+
+        if (view.timerProgressContainer.childCount > 0) {
+            val lp = progressView.layoutParams as ViewGroup.MarginLayoutParams
+            lp.marginStart = ViewUtils.dpToPx(4f, view.context).toInt()
+        }
+
+        view.timerProgressContainer.addView(progressView)
+    }
+
+    private fun createProgressView(view: View) =
+        LayoutInflater.from(view.context).inflate(
+            R.layout.item_timer_progress,
+            view.timerProgressContainer,
+            false
+        )
 
     data class SubQuestViewModel(
         val name: String,
