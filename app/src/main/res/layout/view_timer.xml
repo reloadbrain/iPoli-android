@@ -59,7 +59,7 @@
         android:layout_height="0dp"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+        app:layout_constraintBottom_toTopOf="@+id/timerProgressScroll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +138,7 @@
     </FrameLayout>
 
     <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
+        android:id="@+id/timerProgressScroll"
         android:layout_width="0dp"
         android:layout_height="82dp"
         android:layout_marginBottom="16dp"
@@ -168,13 +168,13 @@
         android:id="@+id/notImportantGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="horizontalScrollView, addPomodoro, removePomodoro, tagList" />
+        app:constraint_referenced_ids="timerProgressScroll, addPomodoro, removePomodoro, tagList" />
 
     <android.support.constraint.Group
         android:id="@+id/pomodoroIndicatorsGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="horizontalScrollView, addPomodoro, removePomodoro" />
+        app:constraint_referenced_ids="timerProgressScroll, addPomodoro, removePomodoro" />
 
     <Switch
         android:id="@+id/timerType"
@@ -197,9 +197,9 @@
         android:layout_height="24dp"
         android:layout_marginStart="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintBottom_toBottomOf="@+id/horizontalScrollView"
+        app:layout_constraintBottom_toBottomOf="@+id/timerProgressScroll"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/horizontalScrollView" />
+        app:layout_constraintTop_toTopOf="@+id/timerProgressScroll" />
 
     <ImageButton
         android:id="@+id/addPomodoro"
@@ -209,8 +209,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintBottom_toBottomOf="@+id/horizontalScrollView"
+        app:layout_constraintBottom_toBottomOf="@+id/timerProgressScroll"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/horizontalScrollView" />
+        app:layout_constraintTop_toTopOf="@+id/timerProgressScroll" />
 
 </android.support.constraint.ConstraintLayout>

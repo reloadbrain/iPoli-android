@@ -35,7 +35,6 @@ import io.ipoli.android.common.view.recyclerview.SimpleViewHolder
 import kotlinx.android.synthetic.main.controller_quest_detail.view.*
 import kotlinx.android.synthetic.main.item_quest_sub_quest.view.*
 import kotlinx.android.synthetic.main.item_timer_progress.view.*
-import timber.log.Timber
 
 class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewState, QuestReducer> {
 
@@ -101,6 +100,7 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 //                tp.height = LinearLayout.LayoutParams.WRAP_CONTENT
 //                view.timerProgress.layoutParams = tp
             view.timerProgressLayout.visible()
+            view.timerProgressScroll.visible()
 
             val iconImage = Ionicons.Icon.ion_stop
 
@@ -305,7 +305,6 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 
     private fun renderTimerIndicatorsProgress(view: View, state: QuestViewState) {
         view.timerProgressContainer.removeAllViews()
-        Timber.d("AAA ${state.pomodoroProgress}")
         state.pomodoroProgress.forEach {
             addProgressIndicator(view, it)
         }
@@ -320,7 +319,7 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
 
         when (progress) {
             PomodoroProgress.INCOMPLETE_WORK -> {
-                progressDrawable.setColor(colorRes(R.color.md_grey_300))
+                progressDrawable.setColor(colorRes(R.color.md_light_text_50))
             }
 
             PomodoroProgress.COMPLETE_WORK -> {
@@ -328,23 +327,23 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
             }
 
             PomodoroProgress.INCOMPLETE_SHORT_BREAK -> {
-                progressDrawable.setColor(colorRes(R.color.md_grey_300))
-                progressView.setScale(0.5f)
+                progressDrawable.setColor(colorRes(R.color.md_light_text_50))
+                progressView.setScale(0.65f)
             }
 
             PomodoroProgress.COMPLETE_SHORT_BREAK -> {
                 progressDrawable.setColor(attrData(R.attr.colorAccent))
-                progressView.setScale(0.5f)
+                progressView.setScale(0.65f)
             }
 
             PomodoroProgress.INCOMPLETE_LONG_BREAK -> {
-                progressDrawable.setColor(colorRes(R.color.md_grey_300))
-                progressView.setScale(0.75f)
+                progressDrawable.setColor(colorRes(R.color.md_light_text_50))
+                progressView.setScale(0.8f)
             }
 
             PomodoroProgress.COMPLETE_LONG_BREAK -> {
                 progressDrawable.setColor(attrData(R.attr.colorAccent))
-                progressView.setScale(0.75f)
+                progressView.setScale(0.8f)
             }
         }
         progressView.timerItemProgress.background = progressDrawable
@@ -363,6 +362,17 @@ class QuestDetailViewController : ReduxViewController<QuestAction, QuestViewStat
             view.timerProgressContainer,
             false
         )
+
+    private fun playBlinkIndicatorAnimation(view: View, reverse: Boolean = false) {
+        view
+            .animate()
+            .alpha(if (reverse) 1f else 0f)
+            .setDuration(mediumAnimTime)
+            .withEndAction {
+                playBlinkIndicatorAnimation(view, !reverse)
+            }
+            .start()
+    }
 
     data class SubQuestViewModel(
         val name: String,
